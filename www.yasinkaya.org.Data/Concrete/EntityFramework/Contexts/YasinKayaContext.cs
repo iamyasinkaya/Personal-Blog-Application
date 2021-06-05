@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using www.yasinkaya.org.Data.Concrete.EntityFramework.Mappings;
 using www.yasinkaya.org.Entities.Concrete;
 
 namespace www.yasinkaya.org.Data.Concrete.EntityFramework.Contexts
@@ -19,6 +20,15 @@ namespace www.yasinkaya.org.Data.Concrete.EntityFramework.Contexts
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Data Source=.;Initial Catalog=YasinKayaDb;Integrated Security=True");
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new ArticleMap());
+            modelBuilder.ApplyConfiguration(new UserMap());
+            modelBuilder.ApplyConfiguration(new CommentMap());
+            modelBuilder.ApplyConfiguration(new RoleMap());
+            modelBuilder.ApplyConfiguration(new CategoryMap());
         }
     }
 }
