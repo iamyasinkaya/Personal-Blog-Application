@@ -28,11 +28,11 @@ namespace www.yasinkaya.org.Entities.Concrete
         /// <summary>
         /// Views Count
         /// </summary>
-        public int ViewsCount { get; set; }
+        public int ViewsCount { get; set; } = 0;
         /// <summary>
         /// Comment Count
         /// </summary>
-        public int CommentCount { get; set; }
+        public int CommentCount { get; set; } = 0;
         /// <summary>
         /// Seo Author
         /// </summary>

@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\www.yasinkaya.org.Data\www.yasinkaya.org.Data.csproj" />
     <ProjectReference Include="..\www.yasinkaya.org.Entities\www.yasinkaya.org.Entities.csproj" />
     <ProjectReference Include="..\www.yasinkaya.org.Shared\www.yasinkaya.org.Shared.csproj" />
