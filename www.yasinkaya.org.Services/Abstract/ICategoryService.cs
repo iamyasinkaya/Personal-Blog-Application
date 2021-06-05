@@ -11,11 +11,13 @@ namespace www.yasinkaya.org.Services.Abstract
 {
     public interface ICategoryService
     {
-        Task<IDataResult<Category>> GetAsync(int categoryId);
+        Task<IDataResult<CategoryDto>> GetAsync(int categoryId);
 
-        Task<IDataResult<IList<Category>>> GetAllAsync();
+        Task<IDataResult<CategoryListDto>> GetAllAsync();
 
-        Task<IDataResult<IList<Category>>> GetAllByNonDeletedAsync();
+        Task<IDataResult<CategoryListDto>> GetAllByNonDeletedAsync();
+
+        Task<IDataResult<CategoryListDto>> GetAllByNonDeletedAndActiveAsync();
 
         Task<IResult> AddAsync(CategoryAddDto categoryAddDto,string createdByName);
 
