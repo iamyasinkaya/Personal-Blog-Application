@@ -8,11 +8,11 @@ using www.yasinkaya.org.Data.Abstract;
 using www.yasinkaya.org.Entities.Concrete;
 using www.yasinkaya.org.Shared.Data.Concrete.EntityFramework;
 
-namespace www.yasinkaya.org.Data.Concrete
+namespace www.yasinkaya.org.Data.Concrete.EntityFramework
 {
-    public class UserRepository : EfEntityRepositoryBase<User>, IUserRepository
+    public class EfCommentRepository : EfEntityRepositoryBase<Comment>, ICommentRepository
     {
-        public UserRepository(DbContext context) : base(context)
+        public EfCommentRepository(DbContext context) : base(context)
         {
         }
     }
