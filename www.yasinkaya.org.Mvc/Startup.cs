@@ -52,10 +52,9 @@ namespace www.yasinkaya.org.Mvc
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapAreaControllerRoute(
-                    name: "Admin",
-                    areaName: "Admin",
-                    pattern: "Admin/{controller=Home}/{action=Index}/{id}");
+                endpoints.MapAreaControllerRoute(name: "Admin",
+                                      areaName: "Admin",
+                                      pattern: "Admin/{controller}/{action}/{id?}");
                 endpoints.MapDefaultControllerRoute();
             });
         }
