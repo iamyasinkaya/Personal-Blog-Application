@@ -49,7 +49,8 @@ namespace www.yasinkaya.org.Data.Concrete.EntityFramework.Mappings
                 ModifiedDate = DateTime.Now,
                 Description = "Ilk Kullanıcı",
                 Note ="Ilk Kullanıcı",
-                PasswordHash = Encoding.ASCII.GetBytes("9d37c93595cd26172eaf278b1b81bebe")
+                PasswordHash = Encoding.ASCII.GetBytes("9d37c93595cd26172eaf278b1b81bebe"),
+                Picture = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSX4wVGjMQ37PaO4PdUVEAliSLi8-c2gJ1zvQ&usqp=CAU"
             });
 
         }

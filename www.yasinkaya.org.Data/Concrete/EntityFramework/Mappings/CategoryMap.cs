@@ -25,6 +25,47 @@ namespace www.yasinkaya.org.Data.Concrete.EntityFramework.Mappings
             builder.Property(c => c.IsActive).IsRequired();
             builder.Property(c => c.Note).HasMaxLength(500);
             builder.ToTable("Categories");
+            builder.HasData(
+                new Category
+                {
+                    Id = 1,
+                    Name = "C#",
+                    Description = "C# Program dili ile ilgili en güncel bilgiler yer almaktadır.",
+                    IsActive = true,
+                    IsDeleted = false,
+                    CreatedByName = "InitialCreate",
+                    ModifiedByName = "InitialCreate",
+                    CreatedDate = DateTime.Now,
+                    ModifiedDate = DateTime.Now,
+                    Note = "C# Kategori",
+                },
+                new Category
+                {
+                    Id = 2,
+                    Name = "C++",
+                    Description = "C+ Program dili ile ilgili en güncel bilgiler yer almaktadır.",
+                    IsActive = true,
+                    IsDeleted = false,
+                    CreatedByName = "InitialCreate",
+                    ModifiedByName = "InitialCreate",
+                    CreatedDate = DateTime.Now,
+                    ModifiedDate = DateTime.Now,
+                    Note = "C++ Kategori",
+                }
+                ,
+                new Category
+                {
+                    Id = 3,
+                    Name = "Javascript",
+                    Description = "Javascript Program dili ile ilgili en güncel bilgiler yer almaktadır.",
+                    IsActive = true,
+                    IsDeleted = false,
+                    CreatedByName = "InitialCreate",
+                    ModifiedByName = "InitialCreate",
+                    CreatedDate = DateTime.Now,
+                    ModifiedDate = DateTime.Now,
+                    Note = "Javascript Kategori",
+                });
         }
     }
 }
