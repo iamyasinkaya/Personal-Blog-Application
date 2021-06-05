@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using www.yasinkaya.org.Services.Extensions;
 
 namespace www.yasinkaya.org.Mvc
 {
@@ -24,6 +25,7 @@ namespace www.yasinkaya.org.Mvc
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.LoadMyServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
