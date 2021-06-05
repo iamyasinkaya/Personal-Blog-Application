@@ -4,4 +4,10 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\www.yasinkaya.org.Data\www.yasinkaya.org.Data.csproj" />
+    <ProjectReference Include="..\www.yasinkaya.org.Entities\www.yasinkaya.org.Entities.csproj" />
+    <ProjectReference Include="..\www.yasinkaya.org.Shared\www.yasinkaya.org.Shared.csproj" />
+  </ItemGroup>
+
 </Project>
