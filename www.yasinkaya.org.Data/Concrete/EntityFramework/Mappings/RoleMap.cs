@@ -25,6 +25,21 @@ namespace www.yasinkaya.org.Data.Concrete.EntityFramework.Mappings
             builder.Property(r => r.IsActive).IsRequired();
             builder.Property(r => r.Note).HasMaxLength(500);
             builder.ToTable("Roles");
+            builder.HasData(new Role
+            {
+                Id = 1,
+                Name = "Administration",
+                Description = "Tüm yetkilere sahiptir.",
+                IsActive = true,
+                IsDeleted = false,
+                CreatedByName = "InitialCreate",
+                CreatedDate = DateTime.Now,
+                ModifiedByName = "InitialCreate",
+                ModifiedDate = DateTime.Now,
+                Note = "Administration",
+                
+                
+            });
         }
     }
 }

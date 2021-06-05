@@ -33,6 +33,24 @@ namespace www.yasinkaya.org.Data.Concrete.EntityFramework.Mappings
             builder.Property(u => u.IsActive).IsRequired();
             builder.Property(u => u.Note).HasMaxLength(500);
             builder.ToTable("Users");
+            builder.HasData(new User
+            {
+                Id = 1,
+                RoleId = 1,
+                FirstName = "Yasin",
+                LastName = "Kaya",
+                UserName = "Yasin Kaya",
+                EmailAddress ="yasinkaya@yasinkaya.org",
+                IsActive = true,
+                IsDeleted = false,
+                CreatedByName = "InitialCreate",
+                ModifiedByName ="InitialCreate",
+                CreatedDate = DateTime.Now,
+                ModifiedDate = DateTime.Now,
+                Description = "Ilk Kullanıcı",
+                Note ="Ilk Kullanıcı",
+                PasswordHash = Encoding.ASCII.GetBytes("9d37c93595cd26172eaf278b1b81bebe")
+            });
 
         }
     }
