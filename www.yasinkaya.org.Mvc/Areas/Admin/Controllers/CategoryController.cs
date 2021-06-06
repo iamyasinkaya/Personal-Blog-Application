@@ -21,11 +21,9 @@ namespace www.yasinkaya.org.Mvc.Controllers
         public async Task<IActionResult> Index()
         {
             var result = await _categoryService.GetAllAsync();
-            if (result.ResultStatus == ResultStatus.Success)
-            {
-                return View(result.Data);
-            }
-            return View();
+            return View(result.Data);
+
+
         }
     }
 }
