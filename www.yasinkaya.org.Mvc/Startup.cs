@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using www.yasinkaya.org.Services.AutoMapper.Profiles;
 using www.yasinkaya.org.Services.Extensions;
 
 namespace www.yasinkaya.org.Mvc
@@ -25,7 +26,7 @@ namespace www.yasinkaya.org.Mvc
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
-            services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapper(typeof(CategoryProfile), typeof(ArticleProfile));
             services.LoadMyServices();
         }
 
