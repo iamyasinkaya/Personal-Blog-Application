@@ -19,9 +19,9 @@ namespace www.yasinkaya.org.Services.Abstract
 
         Task<IDataResult<CategoryListDto>> GetAllByNonDeletedAndActiveAsync();
 
-        Task<IResult> AddAsync(CategoryAddDto categoryAddDto,string createdByName);
+        Task<IDataResult<CategoryDto>> AddAsync(CategoryAddDto categoryAddDto,string createdByName);
 
-        Task<IResult> UpdateAsync(CategoryUpdateDto categoryUpdateDto,string modifiedByName);
+        Task<IDataResult<CategoryDto>> UpdateAsync(CategoryUpdateDto categoryUpdateDto,string modifiedByName);
 
         Task<IResult> DeleteAsync(int categoryId, string modifiedByName); 
 

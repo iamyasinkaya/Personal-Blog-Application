@@ -25,14 +25,19 @@ namespace www.yasinkaya.org.Services.Concrete
             _mapper = mapper;
         }
 
-        public async Task<IResult> AddAsync(CategoryAddDto categoryAddDto, string createdByName)
+        public async Task<IDataResult<CategoryDto>> AddAsync(CategoryAddDto categoryAddDto, string createdByName)
         {
             var category = _mapper.Map<Category>(categoryAddDto);
             category.CreatedByName = createdByName;
             category.ModifiedByName = createdByName;
-            await _unitOfWork.Categories.AddAsync(category);
+            var addedCategory = await _unitOfWork.Categories.AddAsync(category);
             await _unitOfWork.SaveAsync();
-            return new Result(ResultStatus.Success, $"{categoryAddDto.Name} adlı kategori eklenmiştir");
+            return new DataResult<CategoryDto>(ResultStatus.Success, $"{categoryAddDto.Name} adlı kategori eklenmiştir", new CategoryDto
+            {
+                Category = addedCategory,
+                ResultStatus = ResultStatus.Success,
+                Message = $"{categoryAddDto.Name} adlı kategori eklenmiştir"
+            });
         }
 
         public async Task<IResult> DeleteAsync(int categoryId, string modifiedByName)
@@ -112,7 +117,12 @@ namespace www.yasinkaya.org.Services.Concrete
                 });
             }
 
-            return new DataResult<CategoryDto>(ResultStatus.Error, "Kategori Bulunamadı", null);
+            return new DataResult<CategoryDto>(ResultStatus.Error, "Kategori Bulunamadı", new CategoryDto
+            {
+                Category = category,
+                ResultStatus = ResultStatus.Error,
+                Message = "Kategori Bulunamadı"
+            });
         }
 
         public async Task<IResult> HardDeleteAsync(int categoryId)
@@ -128,13 +138,18 @@ namespace www.yasinkaya.org.Services.Concrete
             return new Result(ResultStatus.Error, "Kategori Bulunamadı");
         }
 
-        public async Task<IResult> UpdateAsync(CategoryUpdateDto categoryUpdateDto, string modifiedByName)
+        public async Task<IDataResult<CategoryDto>> UpdateAsync(CategoryUpdateDto categoryUpdateDto, string modifiedByName)
         {
             var category = _mapper.Map<Category>(categoryUpdateDto);
             category.ModifiedByName = modifiedByName;
-            await _unitOfWork.Categories.UpdateAsync(category);
+            var updatedCategory = await _unitOfWork.Categories.UpdateAsync(category);
             await _unitOfWork.SaveAsync();
-            return new Result(ResultStatus.Success, $"{categoryUpdateDto.Name} adlı kategori güncellenmiştir.");
+            return new DataResult<CategoryDto>(ResultStatus.Success, $"{categoryUpdateDto.Name} adlı kategori güncellenmiştir.", new CategoryDto
+            {
+                Category = updatedCategory,
+                ResultStatus = ResultStatus.Success,
+                Message = $"{categoryUpdateDto.Name} adlı kategori güncellenmiştir."
+            });
         }
     }
 }
