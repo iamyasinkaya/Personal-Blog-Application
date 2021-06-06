@@ -2,8 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
+using www.yasinkaya.org.Entities.Dtos;
+using www.yasinkaya.org.Mvc.Areas.Admin.Models;
 using www.yasinkaya.org.Services.Abstract;
+using www.yasinkaya.org.Shared.Utilities.Extensions;
 using www.yasinkaya.org.Shared.Utilities.Result.ComplexTypes;
 
 namespace www.yasinkaya.org.Mvc.Controllers
@@ -25,10 +29,36 @@ namespace www.yasinkaya.org.Mvc.Controllers
 
 
         }
-
+        [HttpGet]
         public IActionResult Add()
         {
             return PartialView("_CategoryAddPartial");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(CategoryAddDto categoryAddDto)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _categoryService.AddAsync(categoryAddDto: categoryAddDto, createdByName: "Yasin Kaya");
+
+                if (result.ResultStatus == ResultStatus.Success)
+                {
+                    var categoryAddAjaxModel = JsonSerializer.Serialize(new CategoryAddAjaxViewModel
+                    {
+                        CategoryDto = result.Data,
+                        CategoryAddPartial = await this.RenderViewToStringAsync("_CategoryAddPartial", categoryAddDto)
+                    });
+
+                    return Json(categoryAddAjaxModel);
+                }
+            }
+            var categoryAddAjaxErrorModel = JsonSerializer.Serialize(new CategoryAddAjaxViewModel
+            {
+                CategoryAddPartial = await this.RenderViewToStringAsync("_CategoryAddPartial", categoryAddDto)
+            });
+
+            return Json(categoryAddAjaxErrorModel);
         }
     }
 }
