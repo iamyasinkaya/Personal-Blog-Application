@@ -23,7 +23,7 @@ namespace www.yasinkaya.org.Services.Abstract
 
         Task<IDataResult<CategoryDto>> UpdateAsync(CategoryUpdateDto categoryUpdateDto,string modifiedByName);
 
-        Task<IResult> DeleteAsync(int categoryId, string modifiedByName); 
+        Task<IDataResult<CategoryDto>> DeleteAsync(int categoryId, string modifiedByName); 
 
         Task<IResult> HardDeleteAsync(int categoryId);
     }
