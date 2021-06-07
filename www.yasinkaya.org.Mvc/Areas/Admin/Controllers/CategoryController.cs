@@ -71,5 +71,13 @@ namespace www.yasinkaya.org.Mvc.Controllers
             });
             return Json(categories);
         }
+
+        [HttpPost]
+        public async Task<JsonResult> Delete(int categoryId)
+        {
+            var result = await _categoryService.DeleteAsync(categoryId, "Yasin Kaya");
+            var ajaxResult = JsonSerializer.Serialize(result);
+            return Json(ajaxResult);
+        }
     }
 }
