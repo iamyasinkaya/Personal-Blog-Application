@@ -13,6 +13,8 @@ namespace www.yasinkaya.org.Services.Abstract
     {
         Task<IDataResult<CategoryDto>> GetAsync(int categoryId);
 
+        Task<IDataResult<CategoryUpdateDto>> GetCategoryUpdateDtoAsync(int categoryId);
+
         Task<IDataResult<CategoryListDto>> GetAllAsync();
 
         Task<IDataResult<CategoryListDto>> GetAllByNonDeletedAsync();
