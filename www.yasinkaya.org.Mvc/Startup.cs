@@ -31,6 +31,7 @@ namespace www.yasinkaya.org.Mvc
                 opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                 opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
             });
+            services.AddSession();
             services.AddAutoMapper(typeof(CategoryProfile), typeof(ArticleProfile));
             services.LoadMyServices();
         }
@@ -49,13 +50,12 @@ namespace www.yasinkaya.org.Mvc
 
                 app.UseHsts();
             }
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapAreaControllerRoute(name: "Admin",
