@@ -18,7 +18,24 @@ namespace www.yasinkaya.org.Services.Extensions
         public static IServiceCollection LoadMyServices(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddDbContext<YasinKayaContext>();
-            serviceCollection.AddIdentity<User, Role>().AddEntityFrameworkStores<YasinKayaContext>();
+            serviceCollection.AddIdentity<User, Role>(options =>
+            {
+                // User Password Options
+
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 7;
+                options.Password.RequiredUniqueChars = 2; 
+                options.Password.RequireNonAlphanumeric = false; 
+                options.Password.RequireLowercase = true; 
+                options.Password.RequireUppercase = true; 
+
+                //UserName and Email Options
+
+                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                options.User.RequireUniqueEmail = true;
+
+            }
+            ).AddEntityFrameworkStores<YasinKayaContext>();
             serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
             serviceCollection.AddScoped<ICategoryService, CategoryManager>();
             serviceCollection.AddScoped<IArticleService, ArticleManager>();
