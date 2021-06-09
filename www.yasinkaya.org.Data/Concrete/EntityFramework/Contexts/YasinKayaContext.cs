@@ -19,7 +19,7 @@ namespace www.yasinkaya.org.Data.Concrete.EntityFramework.Contexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=.;Initial Catalog=YasinKayaDb;Integrated Security=True");
+            optionsBuilder.UseSqlServer(@"Data Source=.;Initial Catalog=YasinKayaDatabase;Integrated Security=True");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using www.yasinkaya.org.Data.Abstract;
 using www.yasinkaya.org.Data.Concrete;
 using www.yasinkaya.org.Data.Concrete.EntityFramework.Contexts;
+using www.yasinkaya.org.Entities.Concrete;
 using www.yasinkaya.org.Services.Abstract;
 using www.yasinkaya.org.Services.Concrete;
 
@@ -17,6 +18,7 @@ namespace www.yasinkaya.org.Services.Extensions
         public static IServiceCollection LoadMyServices(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddDbContext<YasinKayaContext>();
+            serviceCollection.AddIdentity<User, Role>().AddEntityFrameworkStores<YasinKayaContext>();
             serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
             serviceCollection.AddScoped<ICategoryService, CategoryManager>();
             serviceCollection.AddScoped<IArticleService, ArticleManager>();
