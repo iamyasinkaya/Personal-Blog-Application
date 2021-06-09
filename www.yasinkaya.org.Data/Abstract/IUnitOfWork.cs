@@ -11,8 +11,7 @@ namespace www.yasinkaya.org.Data.Abstract
         IArticleRepository Articles { get; } // unitofwork.Articles
         ICategoryRepository Categories { get; }
         ICommentRepository Commetns { get; }
-        IRoleRepository Roles { get; }
-        IUserRepository Users { get; } // _unitOfWork.Categories.AddAsync();
+       
         /*
          * Örnek;
          * _unitOfWork.Users.AddAsync(user);

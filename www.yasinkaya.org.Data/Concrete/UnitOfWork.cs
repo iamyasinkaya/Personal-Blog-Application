@@ -16,8 +16,7 @@ namespace www.yasinkaya.org.Data.Concrete
         private EfArticleRepository _efArticleRepository;
         private EfCategoryRepository _efCategoryRepository;
         private EfCommentRepository _efCommentRepository;
-        private EfRoleRepository _efRolesRepository;
-        private EfUserRepository _efUserRepository;
+       
 
         public UnitOfWork(YasinKayaContext context)
         {
@@ -30,9 +29,7 @@ namespace www.yasinkaya.org.Data.Concrete
 
         public ICommentRepository Commetns => _efCommentRepository ?? new EfCommentRepository(_context);
 
-        public IRoleRepository Roles => _efRolesRepository ?? new EfRoleRepository(_context);
-
-        public IUserRepository Users => _efUserRepository ?? new EfUserRepository(_context);
+   
 
         public async ValueTask DisposeAsync()
         {
