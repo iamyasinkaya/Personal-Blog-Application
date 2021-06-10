@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using www.yasinkaya.org.Mvc.AutoMapper.Profiles;
 using www.yasinkaya.org.Services.AutoMapper.Profiles;
 using www.yasinkaya.org.Services.Extensions;
 
@@ -33,7 +34,7 @@ namespace www.yasinkaya.org.Mvc
                 opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
             });
             services.AddSession();
-            services.AddAutoMapper(typeof(CategoryProfile), typeof(ArticleProfile));
+            services.AddAutoMapper(typeof(CategoryProfile), typeof(ArticleProfile),typeof(UserProfile));
             services.LoadMyServices();
             services.ConfigureApplicationCookie(options =>
             {
