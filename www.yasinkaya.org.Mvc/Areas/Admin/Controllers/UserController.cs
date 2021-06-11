@@ -35,7 +35,7 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
             _mapper = mapper;
             _signInManager = signInManager;
         }
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "Admin,Editor")]
         public async Task<IActionResult> Index()
         {
             var users = await _userManager.Users.ToListAsync();
@@ -82,6 +82,18 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
             }
 
         }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+
+            return RedirectToAction("Index", "Home", new
+            {
+                Area = ""
+            });
+        }
         [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<JsonResult> GetAllUsers()
@@ -97,7 +109,7 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
             });
             return Json(userListDto);
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Editor")]
         [HttpGet]
         public IActionResult Add()
         {
