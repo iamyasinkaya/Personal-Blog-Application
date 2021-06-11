@@ -15,7 +15,7 @@ using www.yasinkaya.org.Shared.Utilities.Result.ComplexTypes;
 namespace www.yasinkaya.org.Mvc.Controllers
 {
     [Area("Admin")]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;
