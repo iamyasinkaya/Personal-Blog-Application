@@ -42,7 +42,7 @@ namespace www.yasinkaya.org.Mvc
                 options.LogoutPath = new PathString("/Admin/User/Logout");
                 options.Cookie = new CookieBuilder
                 {
-                    Name = "Yasin Kaya Blog",
+                    Name = "YasinKayaBlog",
                     HttpOnly = true,
                     SameSite = SameSiteMode.Strict,
                     SecurePolicy = CookieSecurePolicy.Always,

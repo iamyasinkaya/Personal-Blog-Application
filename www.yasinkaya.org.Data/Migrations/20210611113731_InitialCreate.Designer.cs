@@ -10,7 +10,7 @@ using www.yasinkaya.org.Data.Concrete.EntityFramework.Contexts;
 namespace www.yasinkaya.org.Data.Migrations
 {
     [DbContext(typeof(YasinKayaContext))]
-    [Migration("20210609161807_InitialCreate")]
+    [Migration("20210611113731_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -221,6 +221,22 @@ namespace www.yasinkaya.org.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ConcurrencyStamp = "ff7670fd-1d95-4810-8d5d-01eed00b4570",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ConcurrencyStamp = "fd284c61-a52a-42ce-b3a2-1f720234b5f4",
+                            Name = "Editor",
+                            NormalizedName = "EDITOR"
+                        });
                 });
 
             modelBuilder.Entity("www.yasinkaya.org.Entities.Concrete.RoleClaim", b =>
@@ -312,6 +328,44 @@ namespace www.yasinkaya.org.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "5405442f-94d2-47f1-96ab-87065164810a",
+                            Email = "adminuser@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMINUSER@GMAIL.COM",
+                            NormalizedUserName = "ADMINUSER",
+                            PasswordHash = "AQAAAAEAACcQAAAAEM9Wd8myu56tSk1+FS2lWTxBZbD3qjRWMCKWxyiI8Fd7aoX5GxRgf33mMevFHMQJkw==",
+                            PhoneNumber = "+905303288200",
+                            PhoneNumberConfirmed = true,
+                            Picture = "defaultUser.png",
+                            SecurityStamp = "c94e440f-d039-4a8d-bf76-26cd32d601f9",
+                            TwoFactorEnabled = false,
+                            UserName = "adminuser"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "6ed4268e-306e-4d0c-bfd3-0a97ae8a5e68",
+                            Email = "editoruser@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "EDITORUSER@GMAIL.COM",
+                            NormalizedUserName = "EDITORUSER",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOJXivnG/+VK6ZsWmF7l7fDnqEgRaXEvon1mBvpBCMRms7X7CltSLEoNKiqUAw9Bmw==",
+                            PhoneNumber = "+905303288200",
+                            PhoneNumberConfirmed = true,
+                            Picture = "defaultUser.png",
+                            SecurityStamp = "98dd4e03-6834-47e5-be2d-9254b8ea9c95",
+                            TwoFactorEnabled = false,
+                            UserName = "editoruser"
+                        });
                 });
 
             modelBuilder.Entity("www.yasinkaya.org.Entities.Concrete.UserClaim", b =>
@@ -373,6 +427,18 @@ namespace www.yasinkaya.org.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            RoleId = 2
+                        });
                 });
 
             modelBuilder.Entity("www.yasinkaya.org.Entities.Concrete.UserToken", b =>

@@ -15,8 +15,4 @@
     <ProjectReference Include="..\www.yasinkaya.org.Services\www.yasinkaya.org.Services.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\img\" />
-  </ItemGroup>
-
 </Project>

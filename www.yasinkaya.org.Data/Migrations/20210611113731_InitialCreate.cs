@@ -239,6 +239,34 @@ namespace www.yasinkaya.org.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { 1, "ff7670fd-1d95-4810-8d5d-01eed00b4570", "Admin", "ADMIN" },
+                    { 2, "fd284c61-a52a-42ce-b3a2-1f720234b5f4", "Editor", "EDITOR" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Picture", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[,]
+                {
+                    { 1, 0, "5405442f-94d2-47f1-96ab-87065164810a", "adminuser@gmail.com", true, false, null, "ADMINUSER@GMAIL.COM", "ADMINUSER", "AQAAAAEAACcQAAAAEM9Wd8myu56tSk1+FS2lWTxBZbD3qjRWMCKWxyiI8Fd7aoX5GxRgf33mMevFHMQJkw==", "+905303288200", true, "defaultUser.png", "c94e440f-d039-4a8d-bf76-26cd32d601f9", false, "adminuser" },
+                    { 2, 0, "6ed4268e-306e-4d0c-bfd3-0a97ae8a5e68", "editoruser@gmail.com", true, false, null, "EDITORUSER@GMAIL.COM", "EDITORUSER", "AQAAAAEAACcQAAAAEOJXivnG/+VK6ZsWmF7l7fDnqEgRaXEvon1mBvpBCMRms7X7CltSLEoNKiqUAw9Bmw==", "+905303288200", true, "defaultUser.png", "98dd4e03-6834-47e5-be2d-9254b8ea9c95", false, "editoruser" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { 1, 1 });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { 2, 2 });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Articles_CategoryId",
                 table: "Articles",
