@@ -273,6 +273,13 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
             var updateDto = _mapper.Map<UserUpdateDto>(user);
             return View(updateDto);
         }
+
+        [Authorize]
+        [HttpGet]
+        public ViewResult PasswordChange()
+        {
+            return View();
+        }
         [Authorize]
         [HttpPost]
         public async Task<ViewResult> ChangeDetails(UserUpdateDto userUpdateDto)
@@ -309,7 +316,8 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
                     {
                         ModelState.AddModelError("", error.Description);
                     }
-                    return View(userUpdateDto);                }
+                    return View(userUpdateDto);
+                }
 
             }
             else
@@ -317,6 +325,39 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
                 return View(userUpdateDto);
             }
         }
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> PasswordChange(UserPasswordChangeDto userPasswordChangeDto)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.GetUserAsync(HttpContext.User);
+                var isVerified = await _userManager.CheckPasswordAsync(user, userPasswordChangeDto.CurrentPassword);
+                if (isVerified)
+                {
+                    var result = await _userManager.ChangePasswordAsync(user, userPasswordChangeDto.CurrentPassword, userPasswordChangeDto.NewPassword);
+                    if (result.Succeeded)
+                    {
+                        await _userManager.UpdateSecurityStampAsync(user);
+                        await _signInManager.SignOutAsync();
+                        await _signInManager.PasswordSignInAsync(user, userPasswordChangeDto.NewPassword, true, false);
+                        TempData.Add("SuccessMessage", $"Şifreniz başarıyla değiştirilmiştir");
+                        return View();
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Lütfen, girmiş olduğunuz şu anki şifrenizi kontrol ediniz.");
+                    return View(userPasswordChangeDto);
+                }
+            }
+            else
+            {
+                return View(userPasswordChangeDto);
+            }
+            return View();
+        }
+       
         [Authorize(Roles = "Admin,Editor")]
         public async Task<string> ImageUpload(string userName, IFormFile pictureFile)
         {
