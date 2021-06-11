@@ -35,6 +35,7 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
             _mapper = mapper;
             _signInManager = signInManager;
         }
+
         [Authorize(Roles = "Admin,Editor")]
         public async Task<IActionResult> Index()
         {
@@ -45,11 +46,13 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
                 ResultStatus = ResultStatus.Success
             });
         }
+
         [HttpGet]
         public IActionResult Login()
         {
             return View("UserLogin");
         }
+
         [HttpPost]
         public async Task<IActionResult> Login(UserLoginDto userLoginDto)
         {
@@ -94,7 +97,8 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
                 Area = ""
             });
         }
-        [Authorize(Roles = "Admin")]
+
+        [Authorize(Roles = "Admin,Editor")]
         [HttpGet]
         public async Task<JsonResult> GetAllUsers()
         {
@@ -109,12 +113,15 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
             });
             return Json(userListDto);
         }
-        [Authorize(Roles = "Admin,Editor")]
+
+        [Authorize(Roles = "Admin")]
         [HttpGet]
+
         public IActionResult Add()
         {
             return PartialView("_UserAddPartial");
         }
+
         [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Add(UserAddDto userAddDto)
@@ -162,6 +169,7 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
             return Json(userAddAjaxModelStateErrorModel);
 
         }
+
         [Authorize(Roles = "Admin")]
         public async Task<JsonResult> Delete(int userId)
         {
@@ -195,6 +203,7 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
                 return Json(deletedUserErrorModel);
             }
         }
+
         [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<PartialViewResult> Update(int userId)
@@ -203,6 +212,7 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
             var userUpdateDto = _mapper.Map<UserUpdateDto>(user);
             return PartialView("_UserUpdatePartial", userUpdateDto);
         }
+
         [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Update(UserUpdateDto userUpdateDto)
@@ -358,7 +368,7 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
             return View();
         }
        
-        [Authorize(Roles = "Admin,Editor")]
+        [Authorize(Roles = "Admin")]
         public async Task<string> ImageUpload(string userName, IFormFile pictureFile)
         {
             // ~/img/user.Picture
@@ -378,7 +388,8 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
 
             return fileName; // AlperTunga_587_5_38_12_3_10_2020.png - "~/img/user.Picture"
         }
-        [Authorize(Roles = "Admin,Editor")]
+
+        [Authorize(Roles = "Admin")]
         public bool ImageDelete(string pictureName)
         {
             string wwwroot = _env.WebRootPath;
