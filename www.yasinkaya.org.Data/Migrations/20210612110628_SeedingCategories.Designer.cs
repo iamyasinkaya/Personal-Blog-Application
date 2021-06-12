@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using www.yasinkaya.org.Data.Concrete.EntityFramework.Contexts;
 
 namespace www.yasinkaya.org.Data.Migrations
 {
     [DbContext(typeof(YasinKayaContext))]
-    partial class YasinKayaContextModelSnapshot : ModelSnapshot
+    [Migration("20210612110628_SeedingCategories")]
+    partial class SeedingCategories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -224,14 +226,14 @@ namespace www.yasinkaya.org.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "fe3cdd04-98ce-4327-ab1b-d5061034161f",
+                            ConcurrencyStamp = "8a0de634-bd6f-4111-9b38-f309e35fde0b",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "fdb4f2f9-8b09-473c-ad5c-7b2ed1e70dd8",
+                            ConcurrencyStamp = "c58065bd-2f85-4fcf-abe2-4b207b0c1c65",
                             Name = "Editor",
                             NormalizedName = "EDITOR"
                         });
@@ -332,17 +334,17 @@ namespace www.yasinkaya.org.Data.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "69594d97-a350-457e-820e-da02a48f6c46",
+                            ConcurrencyStamp = "be32f150-826e-4993-a097-02d1238ce039",
                             Email = "adminuser@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMINUSER@GMAIL.COM",
                             NormalizedUserName = "ADMINUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEALvzRdgPW/MFW1Mygfg85JYw92hpNawv3/gvTtXCwmijJXAf0Lmvjcei0xHYMDPEg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFQRD2Q2hHxmSItYmRA5S4MBl7M0JZ3o7AiqG8/QIfgTs+Op7A5jKpIp3sTXTknAKw==",
                             PhoneNumber = "+905303288200",
                             PhoneNumberConfirmed = true,
                             Picture = "defaultUser.png",
-                            SecurityStamp = "c68783e3-ffc8-4de1-be37-a3aba1abe1d5",
+                            SecurityStamp = "ee04c76d-0afb-49d8-b77e-337ddbcf30a4",
                             TwoFactorEnabled = false,
                             UserName = "adminuser"
                         },
@@ -350,17 +352,17 @@ namespace www.yasinkaya.org.Data.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "96ca4e34-53af-4a73-a349-906746d0f34b",
+                            ConcurrencyStamp = "744f5510-54c2-4596-a90b-2d81cd237db2",
                             Email = "editoruser@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "EDITORUSER@GMAIL.COM",
                             NormalizedUserName = "EDITORUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAENlViQWZx58n+fBxtjf1svmBcuP/OTnYjo1NUwEkMCLr2S7X4ZuLAn62FMy5wChUEw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEP8EE1sd8Y2htZQl7IDZrQH6B602o5EUsDfIQQXq98S2/SBWEVsWi83/EC1f1YC4gg==",
                             PhoneNumber = "+905303288200",
                             PhoneNumberConfirmed = true,
                             Picture = "defaultUser.png",
-                            SecurityStamp = "78fc5b39-b2b1-4a2a-858b-9dd2596416ed",
+                            SecurityStamp = "2ac700d8-8044-43c8-8774-b51dc9a087c1",
                             TwoFactorEnabled = false,
                             UserName = "editoruser"
                         });
