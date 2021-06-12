@@ -11,6 +11,8 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using www.yasinkaya.org.Mvc.AutoMapper.Profiles;
+using www.yasinkaya.org.Mvc.Helpers.Abstract;
+using www.yasinkaya.org.Mvc.Helpers.Concrete;
 using www.yasinkaya.org.Services.AutoMapper.Profiles;
 using www.yasinkaya.org.Services.Extensions;
 
@@ -33,9 +35,11 @@ namespace www.yasinkaya.org.Mvc
                 opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                 opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
             });
+            //services.AddHttpClient();
             services.AddSession();
             services.AddAutoMapper(typeof(CategoryProfile), typeof(ArticleProfile),typeof(UserProfile));
             services.LoadMyServices();
+            services.AddScoped<IImageHelper, ImageHelper>();
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = new PathString("/Admin/User/Login");
