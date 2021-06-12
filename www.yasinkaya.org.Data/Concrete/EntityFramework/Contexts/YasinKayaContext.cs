@@ -10,16 +10,21 @@ using www.yasinkaya.org.Entities.Concrete;
 
 namespace www.yasinkaya.org.Data.Concrete.EntityFramework.Contexts
 {
-    public class YasinKayaContext : IdentityDbContext<User, Role, int,UserClaim,UserRole,UserLogin,RoleClaim,UserToken>
+    public class YasinKayaContext : IdentityDbContext<User, Role, int, UserClaim, UserRole, UserLogin, RoleClaim, UserToken>
     {
         public DbSet<Article> Articles { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Comment> Comments { get; set; }
 
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer(@"Data Source=.;Initial Catalog=YasinKayaDatabase;Integrated Security=True");
+        //}
+
+        public YasinKayaContext(DbContextOptions<YasinKayaContext> options) : base(options)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=.;Initial Catalog=YasinKayaDatabase;Integrated Security=True");
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

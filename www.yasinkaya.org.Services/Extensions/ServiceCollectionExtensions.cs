@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,19 +16,19 @@ namespace www.yasinkaya.org.Services.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection LoadMyServices(this IServiceCollection serviceCollection)
+        public static IServiceCollection LoadMyServices(this IServiceCollection serviceCollection, string connectionString)
         {
-            serviceCollection.AddDbContext<YasinKayaContext>();
+            serviceCollection.AddDbContext<YasinKayaContext>(opt => opt.UseSqlServer(connectionString));
             serviceCollection.AddIdentity<User, Role>(options =>
             {
                 // User Password Options
 
                 options.Password.RequireDigit = true;
                 options.Password.RequiredLength = 7;
-                options.Password.RequiredUniqueChars = 2; 
-                options.Password.RequireNonAlphanumeric = false; 
-                options.Password.RequireLowercase = true; 
-                options.Password.RequireUppercase = true; 
+                options.Password.RequiredUniqueChars = 2;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireUppercase = true;
 
                 //UserName and Email Options
 

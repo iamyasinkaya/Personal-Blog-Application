@@ -20,6 +20,8 @@ namespace www.yasinkaya.org.Mvc
 {
     public class Startup
     {
+       
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -38,7 +40,7 @@ namespace www.yasinkaya.org.Mvc
             //services.AddHttpClient();
             services.AddSession();
             services.AddAutoMapper(typeof(CategoryProfile), typeof(ArticleProfile),typeof(UserProfile));
-            services.LoadMyServices();
+            services.LoadMyServices(connectionString:Configuration.GetConnectionString(name:"LocalDB"));
             services.AddScoped<IImageHelper, ImageHelper>();
             services.ConfigureApplicationCookie(options =>
             {
