@@ -11,7 +11,7 @@ using www.yasinkaya.org.Mvc.Models;
 namespace www.yasinkaya.org.Areas.Admin.Controllers
 {
     [Area("Admin,Editor")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Editor")]
     public class HomeController : Controller
     {
         public IActionResult Index()
