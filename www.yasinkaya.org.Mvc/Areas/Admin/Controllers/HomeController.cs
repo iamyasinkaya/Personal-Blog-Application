@@ -10,7 +10,7 @@ using www.yasinkaya.org.Mvc.Models;
 
 namespace www.yasinkaya.org.Areas.Admin.Controllers
 {
-    [Area("Admin,Editor")]
+    [Area("Admin")]
     [Authorize(Roles = "Admin,Editor")]
     public class HomeController : Controller
     {
