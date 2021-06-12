@@ -12,7 +12,7 @@ namespace www.yasinkaya.org.Shared.Data.Concrete.EntityFramework
 {
     public class EfEntityRepositoryBase<T> : IEntityRepository<T> where T : class, IEntity, new()
     {
-        private readonly DbContext _context;
+        protected readonly DbContext _context;
 
         public EfEntityRepositoryBase(DbContext context)
         {
@@ -64,10 +64,7 @@ namespace www.yasinkaya.org.Shared.Data.Concrete.EntityFramework
         {
             IQueryable<T> query = _context.Set<T>();
 
-            if (predicate != null)
-            {
-                query = query.Where(predicate);
-            }
+            query = query.Where(predicate);
 
             if (includeProperties.Any())
             {
