@@ -27,7 +27,7 @@ namespace www.yasinkaya.org.Data.Concrete
 
         public ICategoryRepository Categories => _efCategoryRepository ?? new EfCategoryRepository(_context);
 
-        public ICommentRepository Commetns => _efCommentRepository ?? new EfCommentRepository(_context);
+        public ICommentRepository Comments => _efCommentRepository ?? new EfCommentRepository(_context);
 
    
 
