@@ -33,7 +33,7 @@ namespace www.yasinkaya.org.Services.Concrete
             }
         }
 
-        public async Task<IDataResult<int>> CountByIsDeletedAsync()
+        public async Task<IDataResult<int>> CountByNonDeletedAsync()
         {
             var commentsCount = await _unitOfWork.Comments.CountAsync(c => !c.IsDeleted);
             if (commentsCount > -1)

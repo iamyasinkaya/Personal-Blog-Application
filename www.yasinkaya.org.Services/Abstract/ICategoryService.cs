@@ -31,6 +31,6 @@ namespace www.yasinkaya.org.Services.Abstract
 
         Task<IDataResult<int>> CountAsync();
 
-        Task<IDataResult<int>> CountByIsDeletedAsync();
+        Task<IDataResult<int>> CountByNonDeletedAsync();
     }
 }

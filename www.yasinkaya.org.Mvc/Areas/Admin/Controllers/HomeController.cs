@@ -36,10 +36,10 @@ namespace www.yasinkaya.org.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var categoriesCountResult = await _categoryService.CountByIsDeletedAsync();
-            var commentsCountResult = await _commentService.CountByIsDeletedAsync();
+            var categoriesCountResult = await _categoryService.CountByNonDeletedAsync();
+            var commentsCountResult = await _commentService.CountByNonDeletedAsync();
             var usersCountResult = await _userManager.Users.CountAsync();
-            var articlesCountResult = await _articleService.CountByIsDeletedAsync();
+            var articlesCountResult = await _articleService.CountByNonDeletedAsync();
             var articleResult = await _articleService.GetAllAsync();
 
 

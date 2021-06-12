@@ -52,7 +52,7 @@ namespace www.yasinkaya.org.Services.Concrete
             }
         }
 
-        public async Task<IDataResult<int>> CountByIsDeletedAsync()
+        public async Task<IDataResult<int>> CountByNonDeletedAsync()
         {
             var articlesCount = await _unitOfWork.Articles.CountAsync(a => !a.IsDeleted);
             if (articlesCount > -1)
