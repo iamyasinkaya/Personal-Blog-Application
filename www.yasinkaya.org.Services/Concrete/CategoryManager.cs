@@ -41,6 +41,32 @@ namespace www.yasinkaya.org.Services.Concrete
             });
         }
 
+        public async Task<IDataResult<int>> CountAsync()
+        {
+            var categoriesCount = await _unitOfWork.Categories.CountAsync();
+            if (categoriesCount > -1)
+            {
+                return new DataResult<int>(ResultStatus.Success, categoriesCount);
+            }
+            else
+            {
+                return new DataResult<int>(ResultStatus.Error, $"Hata ile karşılaşıldı.", -1);
+            }
+        }
+
+        public async Task<IDataResult<int>> CountByIsDeletedAsync()
+        {
+            var categoriesCount = await _unitOfWork.Categories.CountAsync(c => !c.IsDeleted);
+            if (categoriesCount > -1)
+            {
+                return new DataResult<int>(ResultStatus.Success, categoriesCount);
+            }
+            else
+            {
+                return new DataResult<int>(ResultStatus.Error, $"Hata ile karşılaşıldı.", -1);
+            }
+        }
+
         public async Task<IDataResult<CategoryDto>> DeleteAsync(int categoryId, string modifiedByName)
         {
             var category = await _unitOfWork.Categories.GetAsync(c => c.Id == categoryId);
@@ -170,7 +196,7 @@ namespace www.yasinkaya.org.Services.Concrete
             {
                 await _unitOfWork.Categories.DeleteAsync(category);
                 await _unitOfWork.SaveAsync();
-                return new Result(ResultStatus.Success,Messages.Category.HardDelete(category.Name));
+                return new Result(ResultStatus.Success, Messages.Category.HardDelete(category.Name));
             }
 
             return new Result(ResultStatus.Error, Messages.Category.NotFound(false));

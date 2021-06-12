@@ -10,7 +10,7 @@ namespace www.yasinkaya.org.Data.Abstract
     {
         IArticleRepository Articles { get; } // unitofwork.Articles
         ICategoryRepository Categories { get; }
-        ICommentRepository Commetns { get; }
+        ICommentRepository Comments { get; }
        
         /*
          * Örnek;

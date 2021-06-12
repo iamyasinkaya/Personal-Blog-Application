@@ -28,5 +28,9 @@ namespace www.yasinkaya.org.Services.Abstract
         Task<IDataResult<CategoryDto>> DeleteAsync(int categoryId, string modifiedByName); 
 
         Task<IResult> HardDeleteAsync(int categoryId);
+
+        Task<IDataResult<int>> CountAsync();
+
+        Task<IDataResult<int>> CountByIsDeletedAsync();
     }
 }

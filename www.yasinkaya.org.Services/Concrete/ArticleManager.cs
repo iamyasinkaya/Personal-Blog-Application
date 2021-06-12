@@ -39,6 +39,32 @@ namespace www.yasinkaya.org.Services.Concrete
             return new Result(ResultStatus.Success, Messages.Category.Add(articleAddDto.Title));
         }
 
+        public async Task<IDataResult<int>> CountAsync()
+        {
+            var articlesCount = await _unitOfWork.Articles.CountAsync();
+            if (articlesCount > -1)
+            {
+                return new DataResult<int>(ResultStatus.Success, articlesCount);
+            }
+            else
+            {
+                return new DataResult<int>(ResultStatus.Error, $"Hata ile karşılaşıldı.", -1);
+            }
+        }
+
+        public async Task<IDataResult<int>> CountByIsDeletedAsync()
+        {
+            var articlesCount = await _unitOfWork.Articles.CountAsync(a => !a.IsDeleted);
+            if (articlesCount > -1)
+            {
+                return new DataResult<int>(ResultStatus.Success, articlesCount);
+            }
+            else
+            {
+                return new DataResult<int>(ResultStatus.Error, $"Hata ile karşılaşıldı.", -1);
+            }
+        }
+
         public async Task<IResult> DeleteAsync(int articleId, string modifiedByName)
         {
             var result = await _unitOfWork.Articles.AnyAsync(a => a.Id == articleId);
@@ -53,7 +79,7 @@ namespace www.yasinkaya.org.Services.Concrete
                 return new Result(ResultStatus.Success, Messages.Article.Delete(article.Title));
             }
 
-            return new Result(ResultStatus.Error, Messages.Article.NotFound(isPlural:false));
+            return new Result(ResultStatus.Error, Messages.Article.NotFound(isPlural: false));
         }
 
         public async Task<IDataResult<ArticleListDto>> GetAllAsync()
@@ -86,7 +112,7 @@ namespace www.yasinkaya.org.Services.Concrete
                     });
                 }
 
-                return new DataResult<ArticleListDto>(ResultStatus.Error, Messages.Article.NotFound(isPlural:true), null);
+                return new DataResult<ArticleListDto>(ResultStatus.Error, Messages.Article.NotFound(isPlural: true), null);
             }
 
             return new DataResult<ArticleListDto>(ResultStatus.Error, Messages.Category.NotFound(isPlural: true), null);
