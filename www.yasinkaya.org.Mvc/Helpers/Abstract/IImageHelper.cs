@@ -10,6 +10,7 @@ namespace www.yasinkaya.org.Mvc.Helpers.Abstract
 {
     public interface IImageHelper
     {
-        Task<IDataResult<UploadedImageDto>> UploadUserImageAsync(string userName, IFormFile pictureFile, string folderName = "userImages");
+        Task<IDataResult<ImageUploadedDto>> UploadUserImageAsync(string userName, IFormFile pictureFile, string folderName = "userImages");
+        IDataResult<ImageDeletedDto> Delete(string pictureName);
     }
 }

@@ -230,7 +230,10 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
                 {
                     var uploadedImageDtoResult = await _imageHelper.UploadUserImageAsync(userUpdateDto.UserName, userUpdateDto.PictureFile);
                     userUpdateDto.Picture = uploadedImageDtoResult.ResultStatus == ResultStatus.Success ? uploadedImageDtoResult.Data.FullName : "userImages/defaulUser.png";
-                    isNewPictureUploaded = true;
+                    if (oldUserPicture != "userImages/defaultUser.png")
+                    {
+                        isNewPictureUploaded = true;
+                    }
                 }
 
                 var updatedUser = _mapper.Map<UserUpdateDto, User>(userUpdateDto, oldUser);
@@ -239,7 +242,7 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
                 {
                     if (isNewPictureUploaded)
                     {
-                        ImageDelete(oldUserPicture);
+                        _imageHelper.Delete(oldUserPicture);
                     }
 
                     var userUpdateViewModel = JsonSerializer.Serialize(new UserUpdateAjaxViewModel
@@ -308,7 +311,7 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
                 {
                     var uploadedImageDtoResult = await _imageHelper.UploadUserImageAsync(userUpdateDto.UserName, userUpdateDto.PictureFile);
                     userUpdateDto.Picture = uploadedImageDtoResult.ResultStatus == ResultStatus.Success ? uploadedImageDtoResult.Data.FullName : "userImages/defaulUser.png";
-                    if (oldUserPicture != "defaultUser.png")
+                    if (oldUserPicture != "userImages/defaultUser.png")
                     {
                         isNewPictureUploaded = true;
                     }
@@ -321,7 +324,7 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
                 {
                     if (isNewPictureUploaded)
                     {
-                        ImageDelete(oldUserPicture);
+                        _imageHelper.Delete(oldUserPicture);
                     }
                     TempData.Add("SuccessMessage", $"{updatedUser.UserName} adlı kullanıcı başarıyla güncellendi");
                     return View(userUpdateDto);
@@ -404,9 +407,9 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
         //    return fileName; // AlperTunga_587_5_38_12_3_10_2020.png - "~/img/user.Picture"
         //}
 
-        [Authorize(Roles = "Admin")]
-        public bool ImageDelete(string pictureName)
-        {
+        //[Authorize(Roles = "Admin")]
+        //public bool ImageDelete(string pictureName)
+        //{
         //    string wwwroot = _env.WebRootPath;
         //    var fileToDelete = Path.Combine($"{wwwroot}/img", pictureName);
         //    if (System.IO.File.Exists(fileToDelete))
@@ -419,8 +422,8 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
         //        return false;
         //    }
 
-            return true;
-        }
+        //    return true;
+        //}
 
         [HttpGet]
         public ViewResult AccessDenied()
