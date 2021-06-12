@@ -8,6 +8,7 @@ using www.yasinkaya.org.Data.Abstract;
 using www.yasinkaya.org.Entities.Concrete;
 using www.yasinkaya.org.Entities.Dtos;
 using www.yasinkaya.org.Services.Abstract;
+using www.yasinkaya.org.Services.Utilities;
 using www.yasinkaya.org.Shared.Utilities.Result.Abstract;
 using www.yasinkaya.org.Shared.Utilities.Result.ComplexTypes;
 using www.yasinkaya.org.Shared.Utilities.Result.Concrete;
@@ -25,6 +26,8 @@ namespace www.yasinkaya.org.Services.Concrete
             _mapper = mapper;
         }
 
+
+
         public async Task<IResult> AddAsync(ArticleAddDto articleAddDto, string createdByName)
         {
             var article = _mapper.Map<Article>(articleAddDto);
@@ -33,7 +36,7 @@ namespace www.yasinkaya.org.Services.Concrete
             article.UserId = 1; // şimdilik bunu verdim refactoring yapılacaktır!
             await _unitOfWork.Articles.AddAsync(article);
             await _unitOfWork.SaveAsync();
-            return new Result(ResultStatus.Success, $"{articleAddDto.Title} başlıklı makale oluşturuldu.");
+            return new Result(ResultStatus.Success, Messages.Category.Add(articleAddDto.Title));
         }
 
         public async Task<IResult> DeleteAsync(int articleId, string modifiedByName)
@@ -47,10 +50,10 @@ namespace www.yasinkaya.org.Services.Concrete
                 article.ModifiedDate = DateTime.Now;
                 await _unitOfWork.Articles.UpdateAsync(article);
                 await _unitOfWork.SaveAsync();
-                return new Result(ResultStatus.Success, $"{article.Title} başlıklı makale silinmiştir.");
+                return new Result(ResultStatus.Success, Messages.Article.Delete(article.Title));
             }
 
-            return new Result(ResultStatus.Error, "Makale Bulunamadı");
+            return new Result(ResultStatus.Error, Messages.Article.NotFound(isPlural:false));
         }
 
         public async Task<IDataResult<ArticleListDto>> GetAllAsync()
@@ -65,7 +68,7 @@ namespace www.yasinkaya.org.Services.Concrete
                 });
             }
 
-            return new DataResult<ArticleListDto>(ResultStatus.Error, "Makale Bulunamadı.", null);
+            return new DataResult<ArticleListDto>(ResultStatus.Error, Messages.Article.NotFound(isPlural: true), null);
         }
 
         public async Task<IDataResult<ArticleListDto>> GetAllByCategoryAsync(int categoryId)
@@ -83,10 +86,10 @@ namespace www.yasinkaya.org.Services.Concrete
                     });
                 }
 
-                return new DataResult<ArticleListDto>(ResultStatus.Error, "Makale Bulunamadı.", null);
+                return new DataResult<ArticleListDto>(ResultStatus.Error, Messages.Article.NotFound(isPlural:true), null);
             }
 
-            return new DataResult<ArticleListDto>(ResultStatus.Error, "Kategori Bulunamadı.", null);
+            return new DataResult<ArticleListDto>(ResultStatus.Error, Messages.Category.NotFound(isPlural: true), null);
         }
 
         public async Task<IDataResult<ArticleListDto>> GetAllByNonDeleteAndActiveAsync()
@@ -101,7 +104,7 @@ namespace www.yasinkaya.org.Services.Concrete
                 });
             }
 
-            return new DataResult<ArticleListDto>(ResultStatus.Error, "Makale Bulunamadı.", null);
+            return new DataResult<ArticleListDto>(ResultStatus.Error, Messages.Article.NotFound(isPlural: true), null);
         }
 
         public async Task<IDataResult<ArticleListDto>> GetAllByNonDeletedAsync()
@@ -116,7 +119,7 @@ namespace www.yasinkaya.org.Services.Concrete
                 });
             }
 
-            return new DataResult<ArticleListDto>(ResultStatus.Error, "Makale Bulunamadı.", null);
+            return new DataResult<ArticleListDto>(ResultStatus.Error, Messages.Article.NotFound(isPlural: true), null);
         }
 
         public async Task<IDataResult<ArticleDto>> GetAsync(int articleId)
@@ -131,7 +134,7 @@ namespace www.yasinkaya.org.Services.Concrete
                 });
             }
 
-            return new DataResult<ArticleDto>(ResultStatus.Error, "Makale Bulunamadı.", null);
+            return new DataResult<ArticleDto>(ResultStatus.Error, Messages.Article.NotFound(isPlural: false), null);
         }
 
         public async Task<IResult> HardDeleteAsync(int articleId)
@@ -142,10 +145,10 @@ namespace www.yasinkaya.org.Services.Concrete
                 var article = await _unitOfWork.Articles.GetAsync(a => a.Id == articleId);
                 await _unitOfWork.Articles.DeleteAsync(article);
                 await _unitOfWork.SaveAsync();
-                return new Result(ResultStatus.Success, $"{article.Title} başlıklı makale veritabanından silinmiştir.");
+                return new Result(ResultStatus.Success, Messages.Article.Delete(article.Title));
             }
 
-            return new Result(ResultStatus.Error, "Makale Bulunamadı");
+            return new Result(ResultStatus.Error, Messages.Article.NotFound(isPlural: false));
         }
 
         public async Task<IResult> UpdateAsync(ArticleUpdateDto articleUpdateDto, string modifiedByName)
@@ -154,7 +157,7 @@ namespace www.yasinkaya.org.Services.Concrete
             article.ModifiedByName = modifiedByName;
             await _unitOfWork.Articles.UpdateAsync(article);
             await _unitOfWork.SaveAsync();
-            return new Result(ResultStatus.Success, $"{articleUpdateDto.Title} başlıklı makale güncellenmiştir.");
+            return new Result(ResultStatus.Success, Messages.Article.Update(articleUpdateDto.Title));
 
         }
     }

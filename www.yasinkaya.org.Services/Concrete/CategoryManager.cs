@@ -8,6 +8,7 @@ using www.yasinkaya.org.Data.Abstract;
 using www.yasinkaya.org.Entities.Concrete;
 using www.yasinkaya.org.Entities.Dtos;
 using www.yasinkaya.org.Services.Abstract;
+using www.yasinkaya.org.Services.Utilities;
 using www.yasinkaya.org.Shared.Utilities.Result.Abstract;
 using www.yasinkaya.org.Shared.Utilities.Result.ComplexTypes;
 using www.yasinkaya.org.Shared.Utilities.Result.Concrete;
@@ -32,11 +33,11 @@ namespace www.yasinkaya.org.Services.Concrete
             category.ModifiedByName = createdByName;
             var addedCategory = await _unitOfWork.Categories.AddAsync(category);
             await _unitOfWork.SaveAsync();
-            return new DataResult<CategoryDto>(ResultStatus.Success, $"{categoryAddDto.Name} adlı kategori eklenmiştir", new CategoryDto
+            return new DataResult<CategoryDto>(ResultStatus.Success, Messages.Category.Add(addedCategory.Name), new CategoryDto
             {
                 Category = addedCategory,
                 ResultStatus = ResultStatus.Success,
-                Message = $"{categoryAddDto.Name} adlı kategori eklenmiştir"
+                Message = Messages.Category.Add(addedCategory.Name)
             });
         }
 
@@ -52,18 +53,18 @@ namespace www.yasinkaya.org.Services.Concrete
                 category.ModifiedByName = modifiedByName;
                 var deletedCategory = await _unitOfWork.Categories.UpdateAsync(category);
                 await _unitOfWork.SaveAsync();
-                return new DataResult<CategoryDto>(ResultStatus.Success, $"{deletedCategory.Name} adlı kategori silinmiştir.", new CategoryDto
+                return new DataResult<CategoryDto>(ResultStatus.Success, Messages.Category.Delete(deletedCategory.Name), new CategoryDto
                 {
                     Category = deletedCategory,
                     ResultStatus = ResultStatus.Success,
-                    Message = $"{deletedCategory.Name} adlı kategori silinmiştir."
+                    Message = Messages.Category.Delete(deletedCategory.Name)
                 });
             }
-            return new DataResult<CategoryDto>(ResultStatus.Error, $"Kategori bulunamadı.", new CategoryDto
+            return new DataResult<CategoryDto>(ResultStatus.Error, Messages.Category.NotFound(isPlural: false), new CategoryDto
             {
                 Category = null,
                 ResultStatus = ResultStatus.Error,
-                Message = $"Kategori Bulunamadı"
+                Message = Messages.Category.NotFound(isPlural: false)
             });
         }
 
@@ -79,11 +80,11 @@ namespace www.yasinkaya.org.Services.Concrete
                 });
             }
 
-            return new DataResult<CategoryListDto>(ResultStatus.Error, "Kategori Bulunamadı", new CategoryListDto
+            return new DataResult<CategoryListDto>(ResultStatus.Error, Messages.Category.NotFound(isPlural: true), new CategoryListDto
             {
                 Categories = null,
                 ResultStatus = ResultStatus.Error,
-                Message = "Kategori Bulunamadı"
+                Message = Messages.Category.NotFound(isPlural: true)
             });
         }
 
@@ -99,11 +100,11 @@ namespace www.yasinkaya.org.Services.Concrete
                 });
             }
 
-            return new DataResult<CategoryListDto>(ResultStatus.Error, "Kategori Bulunamadı", new CategoryListDto
+            return new DataResult<CategoryListDto>(ResultStatus.Error, Messages.Category.NotFound(isPlural: true), new CategoryListDto
             {
                 Categories = null,
                 ResultStatus = ResultStatus.Error,
-                Message = "Kategori Bulunamadı"
+                Message = Messages.Category.NotFound(isPlural: true)
             });
         }
 
@@ -118,7 +119,12 @@ namespace www.yasinkaya.org.Services.Concrete
                     ResultStatus = ResultStatus.Success
                 });
             }
-            return new DataResult<CategoryListDto>(ResultStatus.Error, "Kategori Bulunamadı", null);
+            return new DataResult<CategoryListDto>(ResultStatus.Error, Messages.Category.NotFound(isPlural: true), new CategoryListDto
+            {
+                Categories = null,
+                ResultStatus = ResultStatus.Error,
+                Message = Messages.Category.NotFound(isPlural: true)
+            });
         }
 
         public async Task<IDataResult<CategoryDto>> GetAsync(int categoryId)
@@ -134,11 +140,11 @@ namespace www.yasinkaya.org.Services.Concrete
                 });
             }
 
-            return new DataResult<CategoryDto>(ResultStatus.Error, "Kategori Bulunamadı", new CategoryDto
+            return new DataResult<CategoryDto>(ResultStatus.Error, Messages.Category.NotFound(isPlural: false), new CategoryDto
             {
                 Category = category,
                 ResultStatus = ResultStatus.Error,
-                Message = "Kategori Bulunamadı"
+                Message = Messages.Category.NotFound(isPlural: false)
             });
         }
 
@@ -153,7 +159,7 @@ namespace www.yasinkaya.org.Services.Concrete
             }
             else
             {
-                return new DataResult<CategoryUpdateDto>(ResultStatus.Error, "Kategori Bulunamadı!", null);
+                return new DataResult<CategoryUpdateDto>(ResultStatus.Error, Messages.Category.NotFound(isPlural: false), null);
             }
         }
 
@@ -164,24 +170,24 @@ namespace www.yasinkaya.org.Services.Concrete
             {
                 await _unitOfWork.Categories.DeleteAsync(category);
                 await _unitOfWork.SaveAsync();
-                return new Result(ResultStatus.Success, $"{category.Name} adlı kategori veritabanından silinmiştir.");
+                return new Result(ResultStatus.Success,Messages.Category.HardDelete(category.Name));
             }
 
-            return new Result(ResultStatus.Error, "Kategori Bulunamadı");
+            return new Result(ResultStatus.Error, Messages.Category.NotFound(false));
         }
 
         public async Task<IDataResult<CategoryDto>> UpdateAsync(CategoryUpdateDto categoryUpdateDto, string modifiedByName)
         {
             var oldCategory = await _unitOfWork.Categories.GetAsync(c => c.Id == categoryUpdateDto.Id);
-            var category = _mapper.Map<CategoryUpdateDto,Category>(categoryUpdateDto,oldCategory);
+            var category = _mapper.Map<CategoryUpdateDto, Category>(categoryUpdateDto, oldCategory);
             category.ModifiedByName = modifiedByName;
             var updatedCategory = await _unitOfWork.Categories.UpdateAsync(category);
             await _unitOfWork.SaveAsync();
-            return new DataResult<CategoryDto>(ResultStatus.Success, $"{categoryUpdateDto.Name} adlı kategori güncellenmiştir.", new CategoryDto
+            return new DataResult<CategoryDto>(ResultStatus.Success, Messages.Category.Update(updatedCategory.Name), new CategoryDto
             {
                 Category = updatedCategory,
                 ResultStatus = ResultStatus.Success,
-                Message = $"{categoryUpdateDto.Name} adlı kategori güncellenmiştir."
+                Message = Messages.Category.Update(updatedCategory.Name)
             });
         }
     }
