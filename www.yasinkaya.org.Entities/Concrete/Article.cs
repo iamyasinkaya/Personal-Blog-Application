@@ -40,7 +40,7 @@ namespace www.yasinkaya.org.Entities.Concrete
         /// <summary>
         /// Seo Description
         /// </summary>
-        public string SeoDesc { get; set; }
+        public string SeoDescription { get; set; }
         /// <summary>
         /// Seo Tags
         /// </summary>

@@ -10,8 +10,8 @@ using www.yasinkaya.org.Data.Concrete.EntityFramework.Contexts;
 namespace www.yasinkaya.org.Data.Migrations
 {
     [DbContext(typeof(YasinKayaContext))]
-    [Migration("20210612110628_SeedingCategories")]
-    partial class SeedingCategories
+    [Migration("20210615191117_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -72,7 +72,7 @@ namespace www.yasinkaya.org.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("SeoDesc")
+                    b.Property<string>("SeoDescription")
                         .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
@@ -226,14 +226,14 @@ namespace www.yasinkaya.org.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "8a0de634-bd6f-4111-9b38-f309e35fde0b",
+                            ConcurrencyStamp = "054baeb5-b9b7-4ec6-9862-3a11a70b466b",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "c58065bd-2f85-4fcf-abe2-4b207b0c1c65",
+                            ConcurrencyStamp = "ea2e4eeb-25d9-492b-8e16-b28af49f039d",
                             Name = "Editor",
                             NormalizedName = "EDITOR"
                         });
@@ -334,17 +334,17 @@ namespace www.yasinkaya.org.Data.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "be32f150-826e-4993-a097-02d1238ce039",
+                            ConcurrencyStamp = "0b7b11df-898f-4b9f-a71d-f5ab9f62712b",
                             Email = "adminuser@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMINUSER@GMAIL.COM",
                             NormalizedUserName = "ADMINUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFQRD2Q2hHxmSItYmRA5S4MBl7M0JZ3o7AiqG8/QIfgTs+Op7A5jKpIp3sTXTknAKw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEN9eadkBHA5DC9hdJWQYgdywet58MTi+c1GtQvgTU5Ajxm5xN70gbp9sOPda+sZv9w==",
                             PhoneNumber = "+905303288200",
                             PhoneNumberConfirmed = true,
                             Picture = "defaultUser.png",
-                            SecurityStamp = "ee04c76d-0afb-49d8-b77e-337ddbcf30a4",
+                            SecurityStamp = "b0ae030a-018b-47ff-aad1-8627b007f47e",
                             TwoFactorEnabled = false,
                             UserName = "adminuser"
                         },
@@ -352,17 +352,17 @@ namespace www.yasinkaya.org.Data.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "744f5510-54c2-4596-a90b-2d81cd237db2",
+                            ConcurrencyStamp = "9647df33-e2d1-4302-abdc-70cfb6b70d1c",
                             Email = "editoruser@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "EDITORUSER@GMAIL.COM",
                             NormalizedUserName = "EDITORUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEP8EE1sd8Y2htZQl7IDZrQH6B602o5EUsDfIQQXq98S2/SBWEVsWi83/EC1f1YC4gg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIdj8Moir8biLJOVYasYIRDUWwdO9xrq/ljaizdefHUaa9Su0DOrtwYDz70hC2Fdaw==",
                             PhoneNumber = "+905303288200",
                             PhoneNumberConfirmed = true,
                             Picture = "defaultUser.png",
-                            SecurityStamp = "2ac700d8-8044-43c8-8774-b51dc9a087c1",
+                            SecurityStamp = "16b738c7-18b0-49e3-b7a5-b7d21f8533ce",
                             TwoFactorEnabled = false,
                             UserName = "editoruser"
                         });

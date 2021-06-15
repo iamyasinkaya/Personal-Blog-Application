@@ -21,7 +21,7 @@ namespace www.yasinkaya.org.Data.Concrete.EntityFramework.Mappings
             builder.Property(a => a.Content).HasColumnType("NVARCHAR(MAX)"); // Maksimum değerde alabilmesini istedim.
             builder.Property(a => a.Date).IsRequired();
             builder.Property(a => a.SeoAuthor).HasMaxLength(50).IsRequired();
-            builder.Property(a => a.SeoDesc).HasMaxLength(150).IsRequired();
+            builder.Property(a => a.SeoDescription).HasMaxLength(150).IsRequired();
             builder.Property(a => a.SeoTags).IsRequired().HasMaxLength(70);
             builder.Property(a => a.ViewsCount).IsRequired();
             builder.Property(a => a.CommentCount).IsRequired();

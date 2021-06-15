@@ -39,7 +39,7 @@ namespace www.yasinkaya.org.Mvc
             });
             //services.AddHttpClient();
             services.AddSession();
-            services.AddAutoMapper(typeof(CategoryProfile), typeof(ArticleProfile),typeof(UserProfile));
+            services.AddAutoMapper(typeof(CategoryProfile), typeof(ArticleProfile),typeof(UserProfile),typeof(ViewModelsProfile));
             services.LoadMyServices(connectionString:Configuration.GetConnectionString(name:"LocalDB"));
             services.AddScoped<IImageHelper, ImageHelper>();
             services.ConfigureApplicationCookie(options =>

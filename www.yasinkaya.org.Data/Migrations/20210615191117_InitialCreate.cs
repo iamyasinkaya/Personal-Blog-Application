@@ -183,7 +183,7 @@ namespace www.yasinkaya.org.Data.Migrations
                     ViewsCount = table.Column<int>(type: "int", nullable: false),
                     CommentCount = table.Column<int>(type: "int", nullable: false),
                     SeoAuthor = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    SeoDesc = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    SeoDescription = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     SeoTags = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
@@ -244,8 +244,8 @@ namespace www.yasinkaya.org.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { 1, "ff7670fd-1d95-4810-8d5d-01eed00b4570", "Admin", "ADMIN" },
-                    { 2, "fd284c61-a52a-42ce-b3a2-1f720234b5f4", "Editor", "EDITOR" }
+                    { 1, "054baeb5-b9b7-4ec6-9862-3a11a70b466b", "Admin", "ADMIN" },
+                    { 2, "ea2e4eeb-25d9-492b-8e16-b28af49f039d", "Editor", "EDITOR" }
                 });
 
             migrationBuilder.InsertData(
@@ -253,8 +253,8 @@ namespace www.yasinkaya.org.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Picture", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { 1, 0, "5405442f-94d2-47f1-96ab-87065164810a", "adminuser@gmail.com", true, false, null, "ADMINUSER@GMAIL.COM", "ADMINUSER", "AQAAAAEAACcQAAAAEM9Wd8myu56tSk1+FS2lWTxBZbD3qjRWMCKWxyiI8Fd7aoX5GxRgf33mMevFHMQJkw==", "+905303288200", true, "defaultUser.png", "c94e440f-d039-4a8d-bf76-26cd32d601f9", false, "adminuser" },
-                    { 2, 0, "6ed4268e-306e-4d0c-bfd3-0a97ae8a5e68", "editoruser@gmail.com", true, false, null, "EDITORUSER@GMAIL.COM", "EDITORUSER", "AQAAAAEAACcQAAAAEOJXivnG/+VK6ZsWmF7l7fDnqEgRaXEvon1mBvpBCMRms7X7CltSLEoNKiqUAw9Bmw==", "+905303288200", true, "defaultUser.png", "98dd4e03-6834-47e5-be2d-9254b8ea9c95", false, "editoruser" }
+                    { 1, 0, "0b7b11df-898f-4b9f-a71d-f5ab9f62712b", "adminuser@gmail.com", true, false, null, "ADMINUSER@GMAIL.COM", "ADMINUSER", "AQAAAAEAACcQAAAAEN9eadkBHA5DC9hdJWQYgdywet58MTi+c1GtQvgTU5Ajxm5xN70gbp9sOPda+sZv9w==", "+905303288200", true, "defaultUser.png", "b0ae030a-018b-47ff-aad1-8627b007f47e", false, "adminuser" },
+                    { 2, 0, "9647df33-e2d1-4302-abdc-70cfb6b70d1c", "editoruser@gmail.com", true, false, null, "EDITORUSER@GMAIL.COM", "EDITORUSER", "AQAAAAEAACcQAAAAEIdj8Moir8biLJOVYasYIRDUWwdO9xrq/ljaizdefHUaa9Su0DOrtwYDz70hC2Fdaw==", "+905303288200", true, "defaultUser.png", "16b738c7-18b0-49e3-b7a5-b7d21f8533ce", false, "editoruser" }
                 });
 
             migrationBuilder.InsertData(
