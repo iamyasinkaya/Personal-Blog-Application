@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -6,8 +8,11 @@ using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using www.yasinkaya.org.Entities.Concrete;
 using www.yasinkaya.org.Entities.Dtos;
+using www.yasinkaya.org.Mvc.Areas.Admin.Controllers;
 using www.yasinkaya.org.Mvc.Areas.Admin.Models;
+using www.yasinkaya.org.Mvc.Helpers.Abstract;
 using www.yasinkaya.org.Services.Abstract;
 using www.yasinkaya.org.Shared.Utilities.Extensions;
 using www.yasinkaya.org.Shared.Utilities.Result.ComplexTypes;
@@ -16,11 +21,11 @@ namespace www.yasinkaya.org.Mvc.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
-    public class CategoryController : Controller
+    public class CategoryController : BaseController
     {
         private readonly ICategoryService _categoryService;
 
-        public CategoryController(ICategoryService categoryService)
+        public CategoryController(ICategoryService categoryService, IMapper mapper, IImageHelper imageHelper, UserManager<User> userManager) : base(userManager, mapper, imageHelper)
         {
             _categoryService = categoryService;
         }
@@ -43,7 +48,7 @@ namespace www.yasinkaya.org.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _categoryService.AddAsync(categoryAddDto: categoryAddDto, createdByName: "Yasin Kaya");
+                var result = await _categoryService.AddAsync(categoryAddDto: categoryAddDto, createdByName: LoggedInUser.UserName);
 
                 if (result.ResultStatus == ResultStatus.Success)
                 {
@@ -77,7 +82,7 @@ namespace www.yasinkaya.org.Mvc.Controllers
         [HttpPost]
         public async Task<JsonResult> Delete(int categoryId)
         {
-            var result = await _categoryService.DeleteAsync(categoryId, "Yasin Kaya");
+            var result = await _categoryService.DeleteAsync(categoryId, LoggedInUser.UserName);
             var deletedCategory = JsonSerializer.Serialize(result.Data);
             return Json(deletedCategory);
         }
@@ -102,7 +107,7 @@ namespace www.yasinkaya.org.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _categoryService.UpdateAsync(categoryUpdateDto: categoryUpdateDto, "Yasin Kaya");
+                var result = await _categoryService.UpdateAsync(categoryUpdateDto: categoryUpdateDto, LoggedInUser.UserName);
 
                 if (result.ResultStatus == ResultStatus.Success)
                 {
