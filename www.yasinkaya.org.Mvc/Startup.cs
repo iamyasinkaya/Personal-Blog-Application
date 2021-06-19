@@ -20,7 +20,7 @@ namespace www.yasinkaya.org.Mvc
 {
     public class Startup
     {
-       
+
 
         public Startup(IConfiguration configuration)
         {
@@ -36,11 +36,11 @@ namespace www.yasinkaya.org.Mvc
             {
                 opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                 opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
-            });
+            }).AddNToastNotifyToastr();
             //services.AddHttpClient();
             services.AddSession();
-            services.AddAutoMapper(typeof(CategoryProfile), typeof(ArticleProfile),typeof(UserProfile),typeof(ViewModelsProfile));
-            services.LoadMyServices(connectionString:Configuration.GetConnectionString(name:"LocalDB"));
+            services.AddAutoMapper(typeof(CategoryProfile), typeof(ArticleProfile), typeof(UserProfile), typeof(ViewModelsProfile));
+            services.LoadMyServices(connectionString: Configuration.GetConnectionString(name: "LocalDB"));
             services.AddScoped<IImageHelper, ImageHelper>();
             services.ConfigureApplicationCookie(options =>
             {
@@ -81,6 +81,7 @@ namespace www.yasinkaya.org.Mvc
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseNToastNotify();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapAreaControllerRoute(name: "Admin",

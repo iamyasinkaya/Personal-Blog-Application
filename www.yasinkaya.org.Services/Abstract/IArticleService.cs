@@ -13,6 +13,8 @@ namespace www.yasinkaya.org.Services.Abstract
     {
         Task<IDataResult<ArticleDto>> GetAsync(int articleId);
 
+        Task<IDataResult<ArticleUpdateDto>> GetArticleUpdateDtoAsync(int articleId);
+
         Task<IDataResult<ArticleListDto>> GetAllAsync();
 
         Task<IDataResult<ArticleListDto>> GetAllByNonDeletedAsync();
@@ -21,7 +23,7 @@ namespace www.yasinkaya.org.Services.Abstract
 
         Task<IDataResult<ArticleListDto>> GetAllByCategoryAsync(int categoryId);
 
-        Task<IResult> AddAsync(ArticleAddDto articleAddDto, string createdByName);
+        Task<IResult> AddAsync(ArticleAddDto articleAddDto, string createdByName,int userId);
 
         Task<IResult> UpdateAsync(ArticleUpdateDto articleUpdateDto, string modifiedByName);
 

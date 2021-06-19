@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using NToastNotify;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using www.yasinkaya.org.Entities.ComplexTypes;
 using www.yasinkaya.org.Entities.Concrete;
@@ -15,18 +18,20 @@ using www.yasinkaya.org.Shared.Utilities.Result.ComplexTypes;
 
 namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
 {
+
     [Area("Admin")]
     public class ArticleController : BaseController
     {
         private readonly IArticleService _articleService;
         private readonly ICategoryService _categoryService;
+        private readonly IToastNotification _toastNotification;
 
 
-        public ArticleController(IArticleService articleService, ICategoryService categoryService, IMapper mapper, IImageHelper imageHelper, UserManager<User> userManager) : base(userManager, mapper, imageHelper)
+        public ArticleController(IArticleService articleService, ICategoryService categoryService, UserManager<User> userManager, IMapper mapper, IImageHelper imageHelper, IToastNotification toastNotification) : base(userManager, mapper, imageHelper)
         {
             _articleService = articleService;
             _categoryService = categoryService;
-
+            _toastNotification = toastNotification;
         }
 
         [HttpGet]
@@ -39,7 +44,7 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-            var result = await _categoryService.GetAllByNonDeletedAsync();
+            var result = await _categoryService.GetAllByNonDeletedAndActiveAsync();
             if (result.ResultStatus == ResultStatus.Success)
             {
                 return View(new ArticleAddViewModel
@@ -59,21 +64,102 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
                 var imageResult = await ImageHelper.UploadAsync(articleAddViewModel.Title,
                     articleAddViewModel.Thumbnail, PictureType.Post);
                 articleAddDto.Thumbnail = imageResult.Data.FullName;
-                var result = await _articleService.AddAsync(articleAddDto, LoggedInUser.UserName);
+                var result = await _articleService.AddAsync(articleAddDto, LoggedInUser.UserName, LoggedInUser.Id);
                 if (result.ResultStatus == ResultStatus.Success)
                 {
-                    TempData.Add("SuccessMessage", result.Message);
+                    _toastNotification.AddSuccessToastMessage(message: result.Message, new ToastrOptions
+                    {
+                        Title = "Başarılı İşlem"
+                    });
                     return RedirectToAction("Index", "Article");
                 }
                 else
                 {
                     ModelState.AddModelError("", result.Message);
-                    return View(articleAddViewModel);
                 }
             }
 
+            var categories = await _categoryService.GetAllByNonDeletedAndActiveAsync();
+            articleAddViewModel.Categories = categories.Data.Categories;
             return View(articleAddViewModel);
-
         }
+        [HttpGet]
+        public async Task<IActionResult> Update(int articleId)
+        {
+            var articleResult = await _articleService.GetArticleUpdateDtoAsync(articleId);
+            var categoriesResult = await _categoryService.GetAllByNonDeletedAndActiveAsync();
+            if (articleResult.ResultStatus == ResultStatus.Success && categoriesResult.ResultStatus == ResultStatus.Success)
+            {
+                var articleUpdateViewModel = Mapper.Map<ArticleUpdateViewModel>(articleResult.Data);
+                articleUpdateViewModel.Categories = categoriesResult.Data.Categories;
+                return View(articleUpdateViewModel);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> Update(ArticleUpdateViewModel articleUpdateViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                bool isNewThumbnailUploaded = false;
+                var oldThumbnail = articleUpdateViewModel.Thumbnail;
+                if (articleUpdateViewModel.ThumbnailFile != null)
+                {
+                    var uploadedImageResult = await ImageHelper.UploadAsync(articleUpdateViewModel.Title,
+                        articleUpdateViewModel.ThumbnailFile, PictureType.Post);
+                    articleUpdateViewModel.Thumbnail = uploadedImageResult.ResultStatus == ResultStatus.Success
+                        ? uploadedImageResult.Data.FullName
+                        : "postImages/defaultThumbnail.jpg";
+                    if (oldThumbnail != "postImages/defaultThumbnail.jpg")
+                    {
+                        isNewThumbnailUploaded = true;
+                    }
+                }
+                var articleUpdateDto = Mapper.Map<ArticleUpdateDto>(articleUpdateViewModel);
+                var result = await _articleService.UpdateAsync(articleUpdateDto, LoggedInUser.UserName);
+                if (result.ResultStatus == ResultStatus.Success)
+                {
+                    if (isNewThumbnailUploaded)
+                    {
+                        ImageHelper.Delete(oldThumbnail);
+                    }
+                    _toastNotification.AddSuccessToastMessage(message: result.Message, new ToastrOptions
+                    {
+                        Title = "Başarılı İşlem"
+                    });
+                    return RedirectToAction("Index", "Article");
+                }
+                else
+                {
+                    ModelState.AddModelError("", result.Message);
+                }
+            }
+
+            var categories = await _categoryService.GetAllByNonDeletedAndActiveAsync();
+            articleUpdateViewModel.Categories = categories.Data.Categories;
+            return View(articleUpdateViewModel);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> Delete(int articleId)
+        {
+            var result = await _articleService.DeleteAsync(articleId, LoggedInUser.UserName);
+            var articleResult = JsonSerializer.Serialize(result);
+            return Json(articleResult);
+        }
+
+        public async Task<JsonResult> GetAllArticles()
+        {
+            var articles = await _articleService.GetAllByNonDeleteAndActiveAsync();
+            var articleResult = JsonSerializer.Serialize(articles, new JsonSerializerOptions
+            {
+                ReferenceHandler = ReferenceHandler.Preserve
+            });
+            return Json(articleResult);
+        }
+
     }
 }
