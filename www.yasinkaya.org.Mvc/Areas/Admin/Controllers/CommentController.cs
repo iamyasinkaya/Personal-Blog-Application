@@ -42,11 +42,34 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
             });
             return Json(commentsResult);
         }
+        [HttpGet]
+        public async Task<IActionResult> GetDetail(int commentId)
+        {
+            var result = await _commentService.GetAsync(commentId);
+            if (result.ResultStatus == ResultStatus.Success)
+            {
+                return PartialView("_CommentDetailPartial", result.Data);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
         [HttpPost]
         public async Task<IActionResult> Delete(int commentId)
         {
             var result = await _commentService.DeleteAsync(commentId, LoggedInUser.UserName);
             var commentResult = JsonSerializer.Serialize(result);
+            return Json(commentResult);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Approve(int commentId)
+        {
+            var result = await _commentService.ApproveAsync(commentId, LoggedInUser.UserName);
+            var commentResult = JsonSerializer.Serialize(result, new JsonSerializerOptions
+            {
+                ReferenceHandler = ReferenceHandler.Preserve
+            });
             return Json(commentResult);
         }
         [HttpGet]
@@ -74,7 +97,7 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
                     {
                         CommentDto = result.Data,
                         CommentUpdatePartial = await this.RenderViewToStringAsync("_CommentUpdatePartial", commentUpdateDto)
-                    },new JsonSerializerOptions
+                    }, new JsonSerializerOptions
                     {
                         ReferenceHandler = ReferenceHandler.Preserve
                     });

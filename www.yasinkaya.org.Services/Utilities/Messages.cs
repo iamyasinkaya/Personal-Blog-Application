@@ -61,6 +61,7 @@ namespace www.yasinkaya.org.Services.Utilities
                 return $"{articleTitle} başlıklı makale başarıyla veritabanından silinmiştir.";
             }
         }
+
         public static class Comment
         {
             public static string NotFound(bool isPlural)
@@ -72,6 +73,10 @@ namespace www.yasinkaya.org.Services.Utilities
             public static string Add(string createdByName)
             {
                 return $"Sayın {createdByName}, yorumunuz başarıyla eklenmiştir.";
+            }
+            public static string Approve(int commentId)
+            {
+                return $"{commentId}, yorumunuz başarıyla onaylanmıştır.";
             }
 
             public static string Update(string createdByName)
