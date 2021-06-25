@@ -434,5 +434,12 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public async Task<PartialViewResult> GetDetail(int userId)
+        {
+            var user = await _userManager.Users.SingleOrDefaultAsync(u => u.Id == userId);
+            return PartialView("_GetDetailPartial", new UserDto { User = user });
+        }
     }
 }

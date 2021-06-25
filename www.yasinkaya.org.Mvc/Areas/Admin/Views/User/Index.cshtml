@@ -5,11 +5,8 @@
     ViewBag.Title = "Kullanıcılar Index";
 }
 <ol class="breadcrumb mb-3 mt-2">
-
-    <li class="breadcrumb-item" asp-action="Index"><a asp-area="Admin" asp-controller="Home" asp-action="Index">Admin</a></li>
-
+    <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Home" asp-action="Index">Admin</a></li>
     <li class="breadcrumb-item active"><a asp-area="Admin" asp-controller="User" asp-action="Index">Kullanıcılar</a></li>
-
 </ol>
 @if (Model.ResultStatus == ResultStatus.Success)
 {
@@ -29,8 +26,11 @@
                         <tr>
                             <th>ID</th>
                             <th>Kullanıcı Adı</th>
-                            <th>E-posta</th>
-                            <th>Telefon</th>
+                            <th>E-Posta Adresi</th>
+                            <th>Adı</th>
+                            <th>Soyadı</th>
+                            <th>Telefon Numarası</th>
+                            <th>Hakkında</th>
                             <th>Resim</th>
                             <th>İşlemler</th>
                         </tr>
@@ -39,8 +39,11 @@
                         <tr>
                             <th>ID</th>
                             <th>Kullanıcı Adı</th>
-                            <th>E-posta</th>
-                            <th>Telefon</th>
+                            <th>E-Posta Adresi</th>
+                            <th>Adı</th>
+                            <th>Soyadı</th>
+                            <th>Telefon Numarası</th>
+                            <th>Hakkında</th>
                             <th>Resim</th>
                             <th>İşlemler</th>
                         </tr>
@@ -52,9 +55,14 @@
                                 <td>@user.Id</td>
                                 <td>@user.UserName</td>
                                 <td>@user.Email</td>
+                                <td>@user.FirstName</td>
+                                <td>@user.LastName</td>
                                 <td>@user.PhoneNumber</td>
-                                <td><img class="my-image-table" src="/img/@user.Picture" alt="@user.UserName" /></td>
+                                <td>@(user.About.Length>75 ? user.About.Substring(0,75):user.About)</td>
+                                <td><img src="~/img/@user.Picture" alt="@user.UserName" class="my-image-table" /></td>
                                 <td>
+                                    <button class="btn btn-info btn-sm btn-detail" data-id="@user.Id"><span class="fas fa-newspaper"></span></button>
+                                    <button class="btn btn-warning btn-sm btn-assign" data-id="@user.Id"><span class="fas fa-user-shield"></span></button>
                                     <button class="btn btn-primary btn-sm btn-update" data-id="@user.Id"><span class="fas fa-edit"></span></button>
                                     <button class="btn btn-danger btn-sm btn-delete" data-id="@user.Id"><span class="fas fa-minus-circle"></span></button>
                                 </td>

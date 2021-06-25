@@ -1,29 +1,44 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using www.yasinkaya.org.Entities.Concrete;
 
-namespace www.yasinkaya.org.Data.Concrete.EntityFramework.Mappings
+
+namespace wwww.yasinkaya.org.Data.Concrete.EntityFramework.Mappings
 {
-    public class UserMap : IEntityTypeConfiguration<User>
+    public class UserMap:IEntityTypeConfiguration<User>
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
+            builder.Property(u => u.Picture).IsRequired();
+            builder.Property(u => u.Picture).HasMaxLength(250);
+            // Social Media Links
+            builder.Property(u => u.YoutubeLink).HasMaxLength(250);
+            builder.Property(u => u.TwitterLink).HasMaxLength(250);
+            builder.Property(u => u.InstagramLink).HasMaxLength(250);
+            builder.Property(u => u.FacebookLink).HasMaxLength(250);
+            builder.Property(u => u.LinkedInLink).HasMaxLength(250);
+            builder.Property(u => u.GitHubLink).HasMaxLength(250);
+            builder.Property(u => u.WebsiteLink).HasMaxLength(250);
+            // About
+            builder.Property(u => u.FirstName).HasMaxLength(30);
+            builder.Property(u => u.LastName).HasMaxLength(30);
+            builder.Property(u => u.About).HasMaxLength(1000);
+
             // Primary key
             builder.HasKey(u => u.Id);
-            builder.Property(u => u.Id).ValueGeneratedOnAdd();
 
             // Indexes for "normalized" username and email, to allow efficient lookups
             builder.HasIndex(u => u.NormalizedUserName).HasDatabaseName("UserNameIndex").IsUnique();
             builder.HasIndex(u => u.NormalizedEmail).HasDatabaseName("EmailIndex");
 
             // Maps to the AspNetUsers table
-            builder.ToTable("AspNetUsers");
+            builder.ToTable("Users");
 
             // A concurrency token for use with the optimistic concurrency checking
             builder.Property(u => u.ConcurrencyStamp).IsConcurrencyToken();
@@ -36,6 +51,7 @@ namespace www.yasinkaya.org.Data.Concrete.EntityFramework.Mappings
 
             // The relationships between User and other entity types
             // Note that these relationships are configured with no navigation properties
+
             // Each User can have many UserClaims
             builder.HasMany<UserClaim>().WithOne().HasForeignKey(uc => uc.UserId).IsRequired();
 
@@ -55,14 +71,23 @@ namespace www.yasinkaya.org.Data.Concrete.EntityFramework.Mappings
                 NormalizedUserName = "ADMINUSER",
                 Email = "adminuser@gmail.com",
                 NormalizedEmail = "ADMINUSER@GMAIL.COM",
-                PhoneNumber = "+905303288200",
-                Picture = "defaultUser.png",
+                PhoneNumber = "+905555555555",
+                Picture = "/userImages/defaultUser.png",
+                FirstName = "Admin",
+                LastName = "User",
+                About = "Admin User of ProgrammersBlog",
+                TwitterLink = "https://twitter.com/adminuser",
+                InstagramLink = "https://instagram.com/adminuser",
+                YoutubeLink = "https://youtube.com/adminuser",
+                GitHubLink = "https://github.com/adminuser",
+                LinkedInLink = "https://linkedin.com/adminuser",
+                WebsiteLink = "https://programmersblog.com/",
+                FacebookLink = "https://facebook.com/adminuser",
                 EmailConfirmed = true,
                 PhoneNumberConfirmed = true,
                 SecurityStamp = Guid.NewGuid().ToString()
             };
-            adminUser.PasswordHash = CreatPasswordHash(adminUser, "adminuser");
-
+            adminUser.PasswordHash = CreatePasswordHash(adminUser, "adminuser");
             var editorUser = new User
             {
                 Id = 2,
@@ -70,23 +95,31 @@ namespace www.yasinkaya.org.Data.Concrete.EntityFramework.Mappings
                 NormalizedUserName = "EDITORUSER",
                 Email = "editoruser@gmail.com",
                 NormalizedEmail = "EDITORUSER@GMAIL.COM",
-                PhoneNumber = "+905303288200",
-                Picture = "defaultUser.png",
+                PhoneNumber = "+905555555555",
+                Picture = "/userImages/defaultUser.png",
+                FirstName = "Admin",
+                LastName = "User",
+                About = "Editor User of ProgrammersBlog",
+                TwitterLink = "https://twitter.com/editoruser",
+                InstagramLink = "https://instagram.com/editoruser",
+                YoutubeLink = "https://youtube.com/editoruser",
+                GitHubLink = "https://github.com/editoruser",
+                LinkedInLink = "https://linkedin.com/editoruser",
+                WebsiteLink = "https://programmersblog.com/",
+                FacebookLink = "https://facebook.com/editoruser",
                 EmailConfirmed = true,
                 PhoneNumberConfirmed = true,
                 SecurityStamp = Guid.NewGuid().ToString()
             };
-            editorUser.PasswordHash = CreatPasswordHash(adminUser, "editoruser");
+            editorUser.PasswordHash = CreatePasswordHash(editorUser, "editoruser");
 
             builder.HasData(adminUser, editorUser);
-
-
         }
 
-        private string CreatPasswordHash(User user, string password)
+        private string CreatePasswordHash(User user,string password)
         {
-            var passwordHaser = new PasswordHasher<User>();
-            return passwordHaser.HashPassword(user, password);
+            var passwordHasher = new PasswordHasher<User>();
+            return passwordHasher.HashPassword(user,password );
         }
     }
 }
