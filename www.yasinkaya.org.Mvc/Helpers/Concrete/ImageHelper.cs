@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using www.yasinkaya.org.Entities.ComplexTypes;
 using www.yasinkaya.org.Entities.Dtos;
@@ -40,6 +41,8 @@ namespace www.yasinkaya.org.Mvc.Helpers.Concrete
             }
             string oldFileName = Path.GetFileNameWithoutExtension(pictureFile.FileName);
             string fileExtension = Path.GetExtension(pictureFile.FileName);
+            Regex regex = new Regex("[*'\",._&#^@]");
+            name = regex.Replace(name, string.Empty);
             DateTime dateTime = DateTime.Now;
             string newFileName = $"{name}_{dateTime.FullDateAndTimeStringWithUnderscore()}{fileExtension}";
             var path = Path.Combine($"{_wwwroot}/{imgFolder}/{folderName}", newFileName);
