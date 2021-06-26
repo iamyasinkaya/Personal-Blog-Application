@@ -19,6 +19,8 @@ namespace www.yasinkaya.org.Services.Abstract
 
         Task<IDataResult<ArticleListDto>> GetAllByNonDeletedAsync();
 
+        Task<IDataResult<ArticleListDto>> GetAllByDeletedAsync();
+
         Task<IDataResult<ArticleListDto>> GetAllByNonDeleteAndActiveAsync();
 
         Task<IDataResult<ArticleListDto>> GetAllByCategoryAsync(int categoryId);
@@ -30,6 +32,8 @@ namespace www.yasinkaya.org.Services.Abstract
         Task<IResult> DeleteAsync(int articleId, string modifiedByName);
 
         Task<IResult> HardDeleteAsync(int articleId);
+
+        Task<IResult> UndoDeleteAsync(int articleId, string modifiedByName);
 
         Task<IDataResult<int>> CountAsync();
 

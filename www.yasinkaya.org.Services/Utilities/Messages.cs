@@ -34,6 +34,10 @@ namespace www.yasinkaya.org.Services.Utilities
             {
                 return $"{categoryName} adlı kategori başarıyla veritabanından silinmiştir.";
             }
+            public static string UndoDelete(string categoryName)
+            {
+                return $"{categoryName} adlı kategori arşivden geri getirilmiştir.";
+            }
         }
 
         public static class Article
@@ -59,6 +63,10 @@ namespace www.yasinkaya.org.Services.Utilities
             public static string HardDelete(string articleTitle)
             {
                 return $"{articleTitle} başlıklı makale başarıyla veritabanından silinmiştir.";
+            }
+            public static string UndoDelete(string articleTitle)
+            {
+                return $"{articleTitle}  başlıklı makale  arşivden geri getirilmiştir.";
             }
         }
 
@@ -90,6 +98,10 @@ namespace www.yasinkaya.org.Services.Utilities
             public static string HardDelete(string createdByName)
             {
                 return $"{createdByName} tarafından eklenen yorum başarıyla veritabanından silinmiştir.";
+            }
+            public static string UndoDelete(string createdByName)
+            {
+                return $"{createdByName} tarafından eklenen yorum başarıyla arşivden geri getirilmiştir.";
             }
         }
     }
