@@ -24,7 +24,7 @@
                             const deletedCategories = jQuery.parseJSON(data);
                             dataTable.clear();
                             console.log(deletedCategories);
-                            if (deletedCategories.ResultStatus === 0) {
+                            if (deletedCategories.ResultStatus===0) {
                                 $.each(deletedCategories.Categories.$values,
                                     function (index, category) {
                                         const newTableRow = dataTable.row.add([
@@ -98,7 +98,7 @@
 
     /* DataTables end here */
 
-    /* UndoDelete */
+/* UndoDelete */
 
     $(document).on('click',
         '.btn-undo',
@@ -126,7 +126,7 @@
                         success: function (data) {
                             const undoDeletedCategoryResult = jQuery.parseJSON(data);
                             console.log(undoDeletedCategoryResult);
-                            if (undoDeletedCategoryResult.ResultStatus === 0) {
+                            if (undoDeletedCategoryResult.ResultStatus===0) {
                                 Swal.fire(
                                     'Arşivden Geri Getirildi!',
                                     `${undoDeletedCategoryResult.Message}`,
@@ -150,7 +150,7 @@
                 }
             });
         });
-    /* UndoDelete */
+/* UndoDelete */
     /* HardDelete */
 
     $(document).on('click',
@@ -203,5 +203,5 @@
                 }
             });
         });
-    /* HardDelete */
+/* HardDelete */
 });
