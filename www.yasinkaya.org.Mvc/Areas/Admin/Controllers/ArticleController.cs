@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NToastNotify;
@@ -26,14 +27,13 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
         private readonly ICategoryService _categoryService;
         private readonly IToastNotification _toastNotification;
 
-
         public ArticleController(IArticleService articleService, ICategoryService categoryService, UserManager<User> userManager, IMapper mapper, IImageHelper imageHelper, IToastNotification toastNotification) : base(userManager, mapper, imageHelper)
         {
             _articleService = articleService;
             _categoryService = categoryService;
             _toastNotification = toastNotification;
         }
-
+        [Authorize(Roles = "SuperAdmin,Article.Read")]
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -41,6 +41,7 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
             if (result.ResultStatus == ResultStatus.Success) return View(result.Data);
             return NotFound();
         }
+        [Authorize(Roles = "SuperAdmin,Article.Create")]
         [HttpGet]
         public async Task<IActionResult> Add()
         {
@@ -55,6 +56,7 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
 
             return NotFound();
         }
+        [Authorize(Roles = "SuperAdmin,Article.Create")]
         [HttpPost]
         public async Task<IActionResult> Add(ArticleAddViewModel articleAddViewModel)
         {
@@ -67,9 +69,9 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
                 var result = await _articleService.AddAsync(articleAddDto, LoggedInUser.UserName, LoggedInUser.Id);
                 if (result.ResultStatus == ResultStatus.Success)
                 {
-                    _toastNotification.AddSuccessToastMessage(message: result.Message, new ToastrOptions
+                    _toastNotification.AddSuccessToastMessage(result.Message, new ToastrOptions
                     {
-                        Title = "Başarılı İşlem"
+                        Title = "Başarılı İşlem!"
                     });
                     return RedirectToAction("Index", "Article");
                 }
@@ -83,6 +85,7 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
             articleAddViewModel.Categories = categories.Data.Categories;
             return View(articleAddViewModel);
         }
+        [Authorize(Roles = "SuperAdmin,Article.Update")]
         [HttpGet]
         public async Task<IActionResult> Update(int articleId)
         {
@@ -99,6 +102,7 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
                 return NotFound();
             }
         }
+        [Authorize(Roles = "SuperAdmin,Article.Update")]
         [HttpPost]
         public async Task<IActionResult> Update(ArticleUpdateViewModel articleUpdateViewModel)
         {
@@ -126,9 +130,9 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
                     {
                         ImageHelper.Delete(oldThumbnail);
                     }
-                    _toastNotification.AddSuccessToastMessage(message: result.Message, new ToastrOptions
+                    _toastNotification.AddSuccessToastMessage(result.Message, new ToastrOptions
                     {
-                        Title = "Başarılı İşlem"
+                        Title = "Başarılı İşlem!"
                     });
                     return RedirectToAction("Index", "Article");
                 }
@@ -142,7 +146,7 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
             articleUpdateViewModel.Categories = categories.Data.Categories;
             return View(articleUpdateViewModel);
         }
-
+        [Authorize(Roles = "SuperAdmin,Article.Delete")]
         [HttpPost]
         public async Task<JsonResult> Delete(int articleId)
         {
@@ -150,7 +154,8 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
             var articleResult = JsonSerializer.Serialize(result);
             return Json(articleResult);
         }
-
+        [Authorize(Roles = "SuperAdmin,Article.Read")]
+        [HttpGet]
         public async Task<JsonResult> GetAllArticles()
         {
             var articles = await _articleService.GetAllByNonDeleteAndActiveAsync();

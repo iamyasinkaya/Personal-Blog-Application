@@ -2,7 +2,7 @@
 
     /* DataTables start here. */
 
-    const dataTable = $('#articlesTable').DataTable({
+   const dataTable = $('#articlesTable').DataTable({
         dom:
             "<'row'<'col-sm-3'l><'col-sm-6 text-center'B><'col-sm-3'f>>" +
             "<'row'<'col-sm-12'tr>>" +
@@ -58,7 +58,7 @@
                                             newArticle.Title,
                                             `<img src="/img/${newArticle.Thumbnail}" alt="${newArticle.Title}" class="my-image-table" />`,
                                             `${convertToShortDate(newArticle.Date)}`,
-                                            newArticle.ViewsCount,
+                                            newArticle.ViewCount,
                                             newArticle.CommentCount,
                                             `${newArticle.IsActive ? "Evet" : "Hayır"}`,
                                             `${newArticle.IsDeleted ? "Evet" : "Hayır"}`,

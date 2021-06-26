@@ -25,7 +25,7 @@
         plugins: {
             colors: {
                 foreColorList: [
-                    'ff0000', '00ff00', '0000ff', '54e346'
+                    'ff0000', '00ff00', '0000ff','54e346'
                 ],
                 backColorList: [
                     '000', '333', '555'
@@ -71,9 +71,9 @@
             yearSuffix: "",
             duration: 1000,
             showAnim: "drop",
-            showOptions: { direction: "down" },
+            showOptions:{direction:"down"},
             minDate: -3,
-            maxDate: +3
+            maxDate:+3
         });
     });
 

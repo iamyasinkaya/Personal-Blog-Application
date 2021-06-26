@@ -17,45 +17,42 @@ using www.yasinkaya.org.Shared.Utilities.Result.ComplexTypes;
 namespace www.yasinkaya.org.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin,Editor")]
     public class HomeController : Controller
     {
         private readonly ICategoryService _categoryService;
+        private readonly IArticleService _articleService;
         private readonly ICommentService _commentService;
         private readonly UserManager<User> _userManager;
-        private readonly IArticleService _articleService;
 
-        public HomeController(ICategoryService categoryService, ICommentService commentService, UserManager<User> userManager, IArticleService articleService)
+        public HomeController(ICategoryService categoryService, IArticleService articleService, ICommentService commentService, UserManager<User> userManager)
         {
             _categoryService = categoryService;
+            _articleService = articleService;
             _commentService = commentService;
             _userManager = userManager;
-            _articleService = articleService;
         }
-
-
+        [Authorize(Roles = "SuperAdmin,AdminArea.Home.Read")]
         public async Task<IActionResult> Index()
         {
             var categoriesCountResult = await _categoryService.CountByNonDeletedAsync();
-            var commentsCountResult = await _commentService.CountByNonDeletedAsync();
-            var usersCountResult = await _userManager.Users.CountAsync();
             var articlesCountResult = await _articleService.CountByNonDeletedAsync();
-            var articleResult = await _articleService.GetAllAsync();
-
-
-            if (categoriesCountResult.ResultStatus == ResultStatus.Success && commentsCountResult.ResultStatus == ResultStatus.Success && usersCountResult > -1 && articlesCountResult.ResultStatus == ResultStatus.Success && articleResult.ResultStatus == ResultStatus.Success)
+            var commentsCountResult = await _commentService.CountByNonDeletedAsync();
+            var usersCount = await _userManager.Users.CountAsync();
+            var articlesResult = await _articleService.GetAllAsync();
+            if (categoriesCountResult.ResultStatus == ResultStatus.Success && articlesCountResult.ResultStatus == ResultStatus.Success && commentsCountResult.ResultStatus == ResultStatus.Success && usersCount > -1 && articlesResult.ResultStatus == ResultStatus.Success)
             {
                 return View(new DashboardViewModel
                 {
-
                     CategoriesCount = categoriesCountResult.Data,
-                    CommentsCount = commentsCountResult.Data,
-                    UsersCount = usersCountResult,
                     ArticlesCount = articlesCountResult.Data,
-                    Articles = articleResult.Data
+                    CommentsCount = commentsCountResult.Data,
+                    UsersCount = usersCount,
+                    Articles = articlesResult.Data
                 });
             }
+
             return NotFound();
+
         }
     }
 }

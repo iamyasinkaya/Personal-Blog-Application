@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
     $('#articlesTable').DataTable({
+        "order": [[4, "desc"]],
         language: {
             "sDecimal": ",",
             "sEmptyTable": "Tabloda herhangi bir veri mevcut değil",
@@ -31,8 +32,6 @@
                 }
             }
         },
-
-        "order": [[4, "desc"]]
-
+        
     });
 });
