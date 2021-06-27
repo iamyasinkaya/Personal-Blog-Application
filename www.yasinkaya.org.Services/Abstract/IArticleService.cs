@@ -38,5 +38,7 @@ namespace www.yasinkaya.org.Services.Abstract
         Task<IDataResult<int>> CountAsync();
 
         Task<IDataResult<int>> CountByNonDeletedAsync();
+
+        Task<IDataResult<ArticleListDto>> GetAllByViewCountAsync(bool isAscending, int? takeSize);
     }
 }
