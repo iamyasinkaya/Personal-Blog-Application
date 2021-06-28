@@ -25,7 +25,7 @@ namespace www.yasinkaya.org.Services.Abstract
 
         Task<IDataResult<ArticleListDto>> GetAllByCategoryAsync(int categoryId);
 
-        Task<IResult> AddAsync(ArticleAddDto articleAddDto, string createdByName,int userId);
+        Task<IResult> AddAsync(ArticleAddDto articleAddDto, string createdByName, int userId);
 
         Task<IResult> UpdateAsync(ArticleUpdateDto articleUpdateDto, string modifiedByName);
 
@@ -40,5 +40,7 @@ namespace www.yasinkaya.org.Services.Abstract
         Task<IDataResult<int>> CountByNonDeletedAsync();
 
         Task<IDataResult<ArticleListDto>> GetAllByViewCountAsync(bool isAscending, int? takeSize);
+
+        Task<IDataResult<ArticleListDto>> GetAllByPagingAsync(int? categoryId, int currentPage = 1, int pageSize = 5, bool isAscending = false);
     }
 }

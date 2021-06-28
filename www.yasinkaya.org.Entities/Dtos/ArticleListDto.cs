@@ -12,6 +12,7 @@ namespace www.yasinkaya.org.Entities.Dtos
     public class ArticleListDto : DtoGetBase
     {
         public IList<Article> Articles { get; set; }
-        
+        public int? CategoryId { get; set; }
+
     }
 }
