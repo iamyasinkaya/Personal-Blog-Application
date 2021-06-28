@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using www.yasinkaya.org.Mvc.Models;
 using www.yasinkaya.org.Services.Abstract;
 
 namespace www.yasinkaya.org.Mvc.Controllers
@@ -15,10 +16,20 @@ namespace www.yasinkaya.org.Mvc.Controllers
         {
             _articleService = articleService;
         }
-
-        public IActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> Search(string keyword, int currentPage = 1, int pageSize = 5, bool isAscending = false)
         {
-            return View();
+            var searchResult = await _articleService.SearchAsync(keyword, currentPage, pageSize, isAscending);
+            if (searchResult.ResultStatus == Shared.Utilities.Result.ComplexTypes.ResultStatus.Success)
+            {
+                return View(new ArticleSearchViewModel
+                {
+                    ArticleListDto = searchResult.Data,
+                    Keyword = keyword
+                });
+            }
+
+            return NotFound();
         }
 
         [HttpGet]
