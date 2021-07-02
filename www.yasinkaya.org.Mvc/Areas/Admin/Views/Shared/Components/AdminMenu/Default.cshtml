@@ -9,6 +9,10 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Yönetim Paneli
                 </a>
+                <a class="nav-link" asp-area="null" asp-controller="Home" asp-action="Index">
+                    <div class="sb-nav-link-icon"><i class="fas fa-blog"></i></div>
+                    Blog Modülü
+                </a>
                 <div class="sb-sidenav-menu-heading">İçerikler</div>
                 <a class="nav-link" asp-area="Admin" asp-controller="Category" asp-action="Index">
                     <div class="sb-nav-link-icon"><i class="fas fa-th-list"></i></div>
@@ -25,18 +29,16 @@
                 <div class="sb-sidenav-menu-heading">Kullanıcılar</div>
                 @if (Model.Roles.Any(r => r.Equals("SuperAdmin") || r.Equals("Role.Read")))
                 {
-                    <a class="nav-link" asp-area="Admin" asp-controller="Role" asp-action="Index">
-                        <div class="sb-nav-link-icon"><i class="fas fa-user-shield"></i></div>
-                        Roller
-                    </a>
-                }
+            <a class="nav-link" asp-area="Admin" asp-controller="Role" asp-action="Index">
+                <div class="sb-nav-link-icon"><i class="fas fa-user-shield"></i></div>
+                Roller
+            </a>}
                 @if (Model.Roles.Any(r => r.Equals("SuperAdmin") || r.Equals("User.Read")))
                 {
-                    <a class="nav-link" asp-area="Admin" asp-controller="User" asp-action="Index">
-                        <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                        Kullanıcılar
-                    </a>
-                }
+            <a class="nav-link" asp-area="Admin" asp-controller="User" asp-action="Index">
+                <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                Kullanıcılar
+            </a>}
                 <div class="sb-sidenav-menu-heading">Diğer</div>
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                     <div class="sb-nav-link-icon"><i class="fas fa-archive"></i></div>
