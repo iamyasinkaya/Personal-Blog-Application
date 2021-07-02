@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using www.yasinkaya.org.Entities.Concrete;
+using www.yasinkaya.org.Entities.Dtos;
 using www.yasinkaya.org.Mvc.Models;
 using www.yasinkaya.org.Services.Abstract;
 
@@ -35,9 +36,20 @@ namespace www.yasinkaya.org.Mvc.Controllers
             return View(articlesResult.Data);
         }
 
+        [HttpGet]
         public IActionResult About()
         {
             return View(_aboutUsPageInfo);
+        }
+        [HttpGet]
+        public IActionResult Contact()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Contact(EmailSendDto emailSendDto)
+        {
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
