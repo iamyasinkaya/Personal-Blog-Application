@@ -34,6 +34,7 @@ namespace www.yasinkaya.org.Mvc
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<AboutUsPageInfo>(Configuration.GetSection("AboutUsPageInfo"));
+            services.Configure<WebsiteInfo>(Configuration.GetSection("WebsiteInfo"));
             services.AddControllersWithViews(options=>
             {
                 options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(value => "Bu alan boþ geçilmemelidir.");
