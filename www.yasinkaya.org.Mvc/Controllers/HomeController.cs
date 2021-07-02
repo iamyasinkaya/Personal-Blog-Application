@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using www.yasinkaya.org.Entities.Concrete;
 using www.yasinkaya.org.Mvc.Models;
 using www.yasinkaya.org.Services.Abstract;
 
@@ -14,11 +16,13 @@ namespace www.yasinkaya.org.Mvc.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IArticleService _articleService;
+        private readonly AboutUsPageInfo _aboutUsPageInfo;
 
-        public HomeController(ILogger<HomeController> logger, IArticleService articleService)
+        public HomeController(ILogger<HomeController> logger, IArticleService articleService, IOptions<AboutUsPageInfo> aboutUsPageInfo)
         {
             _logger = logger;
             _articleService = articleService;
+            _aboutUsPageInfo = aboutUsPageInfo.Value;
         }
 
         [HttpGet]
@@ -31,9 +35,9 @@ namespace www.yasinkaya.org.Mvc.Controllers
             return View(articlesResult.Data);
         }
 
-        public IActionResult Privacy()
+        public IActionResult About()
         {
-            return View();
+            return View(_aboutUsPageInfo);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
