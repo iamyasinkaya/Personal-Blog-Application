@@ -68,6 +68,10 @@ namespace www.yasinkaya.org.Services.Utilities
             {
                 return $"{articleTitle}  başlıklı makale  arşivden geri getirilmiştir.";
             }
+            public static string IncreaseViewCount(string articleTitle)
+            {
+                return $"{articleTitle}  başlıklı makale'nin okunma sayısı başarıyla arttırılmıştır.";
+            }
         }
 
         public static class Comment

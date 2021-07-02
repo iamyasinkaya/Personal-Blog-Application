@@ -44,5 +44,7 @@ namespace www.yasinkaya.org.Services.Abstract
         Task<IDataResult<ArticleListDto>> GetAllByPagingAsync(int? categoryId, int currentPage = 1, int pageSize = 5, bool isAscending = false);
 
         Task<IDataResult<ArticleListDto>> SearchAsync(string keyword, int currentPage = 1, int pageSize = 5, bool isAscending = false);
+
+        Task<IResult> IncreaseViewCountAsync(int articleId);
     }
 }
