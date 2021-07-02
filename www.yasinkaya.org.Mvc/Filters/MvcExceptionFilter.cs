@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Threading.Tasks;
 using www.yasinkaya.org.Shared.Entities.Concrete;
@@ -28,10 +29,25 @@ namespace www.yasinkaya.org.Mvc.Filters
             {
                 context.ExceptionHandled = true;
                 var mvcErrorModel = new MvcErrorModel
+                
                 {
                     Message = $"Üzgünüz, işleminiz sırasında beklenmedik hata oluştu. En kısa süre içerisinde çözülecektir."
 
                 };
+                switch (context.Exception)
+                {
+                    case SqlNullValueException:
+                        mvcErrorModel.Message = $"Üzgünüz, işleminiz sırasında beklenmedik veritabanı hatası oluştu. En kısa süre içerisinde çözülecektir.";
+                        mvcErrorModel.Detail = context.Exception.Message;
+                        break;
+                    case NullReferenceException:
+                        mvcErrorModel.Message = $"Üzgünüz, işleminiz sırasında beklenmedik null veriye rastlandı. En kısa süre içerisinde çözülecektir.";
+                        mvcErrorModel.Detail = context.Exception.Message;
+                        break;
+                    default:
+                        mvcErrorModel.Message = $"Üzgünüz, işleminiz sırasında beklenmedik hata oluştu. En kısa süre içerisinde çözülecektir."
+                        break;
+                }
 
                 var result = new ViewResult { ViewName = "Error" };
                 result.StatusCode = 500;
