@@ -12,6 +12,7 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using www.yasinkaya.org.Entities.Concrete;
 using www.yasinkaya.org.Mvc.AutoMapper.Profiles;
+using www.yasinkaya.org.Mvc.Filters;
 using www.yasinkaya.org.Mvc.Helpers.Abstract;
 using www.yasinkaya.org.Mvc.Helpers.Concrete;
 using www.yasinkaya.org.Services.AutoMapper.Profiles;
@@ -38,6 +39,7 @@ namespace www.yasinkaya.org.Mvc
             services.AddControllersWithViews(options=>
             {
                 options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(value => "Bu alan boþ geçilmemelidir.");
+                options.Filters.Add<MvcExceptionFilter>();
             }).AddRazorRuntimeCompilation().AddJsonOptions(opt =>
             {
                 opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
