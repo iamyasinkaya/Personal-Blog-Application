@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using www.yasinkaya.org.Data.Concrete.EntityFramework.Contexts;
 
 namespace www.yasinkaya.org.Data.Migrations
 {
     [DbContext(typeof(YasinKayaContext))]
-    partial class YasinKayaContextModelSnapshot : ModelSnapshot
+    [Migration("20210702211839_NLogAdded")]
+    partial class NLogAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

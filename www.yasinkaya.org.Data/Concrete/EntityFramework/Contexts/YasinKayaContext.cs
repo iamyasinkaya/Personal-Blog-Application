@@ -16,6 +16,7 @@ namespace www.yasinkaya.org.Data.Concrete.EntityFramework.Contexts
         public DbSet<Article> Articles { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<Log> Logs { get; set; }
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
         //    optionsBuilder.UseSqlServer(
@@ -37,6 +38,7 @@ namespace www.yasinkaya.org.Data.Concrete.EntityFramework.Contexts
             modelBuilder.ApplyConfiguration(new UserLoginMap());
             modelBuilder.ApplyConfiguration(new UserRoleMap());
             modelBuilder.ApplyConfiguration(new UserTokenMap());
+            modelBuilder.ApplyConfiguration(new LogMap());
         }
     }
 }

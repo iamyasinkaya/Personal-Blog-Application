@@ -45,7 +45,7 @@ namespace www.yasinkaya.org.Mvc.Filters
                         mvcErrorModel.Detail = context.Exception.Message;
                         break;
                     default:
-                        mvcErrorModel.Message = $"Üzgünüz, işleminiz sırasında beklenmedik hata oluştu. En kısa süre içerisinde çözülecektir."
+                        mvcErrorModel.Message = $"Üzgünüz, işleminiz sırasında beklenmedik hata oluştu. En kısa süre içerisinde çözülecektir.";
                         break;
                 }
 
