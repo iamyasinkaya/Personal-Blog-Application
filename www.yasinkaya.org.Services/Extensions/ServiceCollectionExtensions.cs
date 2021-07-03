@@ -46,6 +46,7 @@ namespace www.yasinkaya.org.Services.Extensions
             serviceCollection.AddScoped<ICategoryService, CategoryManager>();
             serviceCollection.AddScoped<IArticleService, ArticleManager>();
             serviceCollection.AddScoped<ICommentService, CommentManager>();
+            serviceCollection.AddSingleton<IMailService, MailManager>();
             return serviceCollection;
         }
     }

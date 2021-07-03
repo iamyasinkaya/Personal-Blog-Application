@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using NToastNotify;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
@@ -19,12 +20,16 @@ namespace www.yasinkaya.org.Mvc.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IArticleService _articleService;
         private readonly AboutUsPageInfo _aboutUsPageInfo;
+        private readonly IMailService _mailService;
+        private readonly IToastNotification _toastNotification;
 
-        public HomeController(ILogger<HomeController> logger, IArticleService articleService, IOptions<AboutUsPageInfo> aboutUsPageInfo)
+        public HomeController(ILogger<HomeController> logger, IArticleService articleService, IOptions<AboutUsPageInfo> aboutUsPageInfo, IMailService mailService, IToastNotification toastNotification)
         {
             _logger = logger;
             _articleService = articleService;
             _aboutUsPageInfo = aboutUsPageInfo.Value;
+            _mailService = mailService;
+            _toastNotification = toastNotification;
         }
 
         [HttpGet]
@@ -50,7 +55,17 @@ namespace www.yasinkaya.org.Mvc.Controllers
         [HttpPost]
         public IActionResult Contact(EmailSendDto emailSendDto)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                var result = _mailService.SendContactEmail(emailSendDto);
+                _toastNotification.AddSuccessToastMessage(result.Message, new ToastrOptions
+                {
+                    Title = "Başarılı İşlem!"
+                });
+                return View();
+            }
+
+            return View(emailSendDto);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
