@@ -23,7 +23,7 @@ namespace www.yasinkaya.org.Mvc.Controllers
         private readonly IMailService _mailService;
         private readonly IToastNotification _toastNotification;
 
-        public HomeController(ILogger<HomeController> logger, IArticleService articleService, IOptions<AboutUsPageInfo> aboutUsPageInfo, IMailService mailService, IToastNotification toastNotification)
+        public HomeController(ILogger<HomeController> logger, IArticleService articleService, IOptionsSnapshot<AboutUsPageInfo> aboutUsPageInfo, IMailService mailService, IToastNotification toastNotification)
         {
             _logger = logger;
             _articleService = articleService;
