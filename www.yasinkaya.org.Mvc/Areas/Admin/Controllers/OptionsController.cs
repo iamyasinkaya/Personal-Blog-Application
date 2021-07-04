@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using NToastNotify;
@@ -7,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using www.yasinkaya.org.Entities.Concrete;
+using www.yasinkaya.org.Mvc.Areas.Admin.Models;
+using www.yasinkaya.org.Services.Abstract;
 using www.yasinkaya.org.Shared.Utilities.Helpers.Abstract;
 
 namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
@@ -22,8 +25,12 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
         private readonly IWritableOptions<WebsiteInfo> _websiteInfoWriter;
         private readonly SmtpSettings _smtpSettings;
         private readonly IWritableOptions<SmtpSettings> _smtpSettingWriter;
+        private readonly ArticleRightSideBarWidgetOptions _articleRightSideBarWidgetOptions;
+        private readonly IWritableOptions<ArticleRightSideBarWidgetOptions> _articleRightSiderBarWidgetOptionsWriter;
+        private readonly ICategoryService _categorService;
+        private readonly IMapper _mapper;
 
-        public OptionsController(IOptionsSnapshot<AboutUsPageInfo> aboutUsPageInfo, IWritableOptions<AboutUsPageInfo> aboutUsPageInfoWriter, IToastNotification toastNotification, IOptionsSnapshot<WebsiteInfo> websiteInfo, IWritableOptions<WebsiteInfo> websiteInfoWriter, IOptionsSnapshot<SmtpSettings> smtpSettings, IWritableOptions<SmtpSettings> smtpSettingWriter)
+        public OptionsController(IOptionsSnapshot<AboutUsPageInfo> aboutUsPageInfo, IWritableOptions<AboutUsPageInfo> aboutUsPageInfoWriter, IToastNotification toastNotification, IOptionsSnapshot<WebsiteInfo> websiteInfo, IWritableOptions<WebsiteInfo> websiteInfoWriter, IOptionsSnapshot<SmtpSettings> smtpSettings, IWritableOptions<SmtpSettings> smtpSettingWriter, IOptionsSnapshot<ArticleRightSideBarWidgetOptions> articleRightSideBarWidgetOptions, IWritableOptions<ArticleRightSideBarWidgetOptions> articleRightSiderBarWidgetOptionsWriter, ICategoryService categorService, IMapper mapper)
         {
             _aboutUsPageInfo = aboutUsPageInfo.Value;
             _aboutUsPageInfoWriter = aboutUsPageInfoWriter;
@@ -32,6 +39,10 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
             _websiteInfoWriter = websiteInfoWriter;
             _smtpSettings = smtpSettings.Value;
             _smtpSettingWriter = smtpSettingWriter;
+            _articleRightSideBarWidgetOptions = articleRightSideBarWidgetOptions.Value;
+            _articleRightSiderBarWidgetOptionsWriter = articleRightSiderBarWidgetOptionsWriter;
+            _categorService = categorService;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -112,6 +123,46 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
                 return View(smtpSettings);
             }
             return View(smtpSettings);
+        }
+        [HttpGet]
+        public async Task<IActionResult> ArticleRightSideBarWidgetSettings()
+        {
+            var categoriesResult = await _categorService.GetAllByNonDeletedAndActiveAsync();
+
+            var articleRightSideBarWidgetOptionsViewModel = _mapper.Map<ArticleRightSideBarWidgetOptionsViewModel>(_articleRightSideBarWidgetOptions);
+            articleRightSideBarWidgetOptionsViewModel.Categories = categoriesResult.Data.Categories;
+
+            return View(articleRightSideBarWidgetOptionsViewModel);
+        }
+        [HttpPost]
+        public async Task<IActionResult> ArticleRightSideBarWidgetSettings(ArticleRightSideBarWidgetOptionsViewModel articleRightSideBarWidgetOptionsViewModel)
+        {
+            var categoriesResult = await _categorService.GetAllByNonDeletedAndActiveAsync();
+            articleRightSideBarWidgetOptionsViewModel.Categories = categoriesResult.Data.Categories;
+            if (ModelState.IsValid)
+            {
+                _articleRightSiderBarWidgetOptionsWriter.Update(x =>
+                {
+                    x.Header = articleRightSideBarWidgetOptionsViewModel.Header;
+                    x.TakeSize = articleRightSideBarWidgetOptionsViewModel.TakeSize;
+                    x.CategoryId = articleRightSideBarWidgetOptionsViewModel.CategoryId;
+                    x.FilterBy = articleRightSideBarWidgetOptionsViewModel.FilterBy;
+                    x.OrderBy = articleRightSideBarWidgetOptionsViewModel.OrderBy;
+                    x.IsAscending = articleRightSideBarWidgetOptionsViewModel.IsAscending;
+                    x.StartAt = articleRightSideBarWidgetOptionsViewModel.StartAt;
+                    x.EndAt = articleRightSideBarWidgetOptionsViewModel.EndAt;
+                    x.MaxViewCount = articleRightSideBarWidgetOptionsViewModel.MaxViewCount;
+                    x.MinViewCount = articleRightSideBarWidgetOptionsViewModel.MinViewCount;
+                    x.MaxCommentCount = articleRightSideBarWidgetOptionsViewModel.MaxCommentCount;
+                    x.MinCommentCount = articleRightSideBarWidgetOptionsViewModel.MinCommentCount;
+                });
+                _toastNotification.AddSuccessToastMessage("Makale sayfalarının widget ayarları başarıyla güncellenmiştir!", new ToastrOptions
+                {
+                    Title = "Başarılı İşlem!"
+                });
+                return View(articleRightSideBarWidgetOptionsViewModel);
+            }
+            return View(articleRightSideBarWidgetOptionsViewModel);
         }
     }
 }

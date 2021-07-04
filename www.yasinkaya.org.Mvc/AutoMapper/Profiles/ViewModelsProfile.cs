@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using www.yasinkaya.org.Entities.Concrete;
 using www.yasinkaya.org.Entities.Dtos;
 using www.yasinkaya.org.Mvc.Areas.Admin.Models;
 
@@ -14,6 +15,7 @@ namespace www.yasinkaya.org.Mvc.AutoMapper.Profiles
         {
             CreateMap<ArticleAddViewModel, ArticleAddDto>();
             CreateMap<ArticleUpdateDto, ArticleUpdateViewModel>().ReverseMap();
+            CreateMap<ArticleRightSideBarWidgetOptions, ArticleRightSideBarWidgetOptionsViewModel>();
         }
     }
 }
