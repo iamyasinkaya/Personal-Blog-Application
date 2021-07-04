@@ -14,6 +14,8 @@ namespace www.yasinkaya.org.Services.Abstract
     {
         Task<IDataResult<ArticleDto>> GetAsync(int articleId);
 
+        Task<IDataResult<ArticleDto>> GetByIdAsync(int articleId, bool includeCategory, bool includeComment, bool includeUser);
+
         Task<IDataResult<ArticleUpdateDto>> GetArticleUpdateDtoAsync(int articleId);
 
         Task<IDataResult<ArticleListDto>> GetAllAsync();

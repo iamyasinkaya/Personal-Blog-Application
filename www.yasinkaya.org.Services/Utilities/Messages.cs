@@ -8,7 +8,14 @@ namespace www.yasinkaya.org.Services.Utilities
 {
     public static class Messages
     {
-        // Messages.Category.NotFound()
+        public static class General
+        {
+            public static string ValidationError()
+            {
+                return $"Bir veya daha fazla validasyon hatası ile karşılaşıldı.";
+            }
+        }
+
         public static class Category
         {
             public static string NotFound(bool isPlural)
@@ -46,6 +53,10 @@ namespace www.yasinkaya.org.Services.Utilities
             {
                 if (isPlural) return "Makaleler bulunamadı.";
                 return "Böyle bir makale bulunamadı.";
+            }
+            public static string NotFoundById(int articleId)
+            {
+                return $"{articleId} makale koduna ait makale bulunamadı";
             }
             public static string Add(string articleTitle)
             {

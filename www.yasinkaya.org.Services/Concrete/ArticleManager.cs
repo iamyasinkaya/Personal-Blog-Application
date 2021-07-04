@@ -13,6 +13,7 @@ using www.yasinkaya.org.Entities.Concrete;
 using www.yasinkaya.org.Entities.Dtos;
 using www.yasinkaya.org.Services.Abstract;
 using www.yasinkaya.org.Services.Utilities;
+using www.yasinkaya.org.Shared.Entities.Concrete;
 using www.yasinkaya.org.Shared.Utilities.Result.Abstract;
 using www.yasinkaya.org.Shared.Utilities.Result.ComplexTypes;
 using www.yasinkaya.org.Shared.Utilities.Result.Concrete;
@@ -462,6 +463,34 @@ namespace www.yasinkaya.org.Services.Concrete
             return new DataResult<ArticleListDto>(ResultStatus.Success, new ArticleListDto
             {
                 Articles = sortedArticles
+            });
+        }
+
+        public async Task<IDataResult<ArticleDto>> GetByIdAsync(int articleId, bool includeCategory, bool includeComment, bool includeUser)
+        {
+            List<Expression<Func<Article, bool>>> predicates = new List<Expression<Func<Article, bool>>>();
+            List<Expression<Func<Article, object>>> includes = new List<Expression<Func<Article, object>>>();
+
+            if (includeCategory) includes.Add(a => a.Category);
+            if (includeComment) includes.Add(a => a.Comments);
+            if (includeUser) includes.Add(a => a.User);
+            predicates.Add(a => a.Id == articleId);
+            var article = await UnitOfWork.Articles.GetAsyncV2(predicates, includes);
+            if (article == null)
+            {
+                return new DataResult<ArticleDto>(ResultStatus.Warning, Messages.General.ValidationError(), null, new List<ValidationError>
+                {
+                    new ValidationError
+                    {
+                        PropertyName = "articleId",
+                        Message = Messages.Article.NotFoundById(articleId)
+                    }
+                });
+            }
+
+            return new DataResult<ArticleDto>(ResultStatus.Success, new ArticleDto
+            {
+                Article = article
             });
         }
     }
