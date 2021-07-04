@@ -18,6 +18,7 @@ namespace www.yasinkaya.org.Shared.Data.Concrete.EntityFramework
         public EfEntityRepositoryBase(DbContext context)
         {
             _context = context;
+           // _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
         public async Task<T> AddAsync(T entity)
@@ -58,7 +59,7 @@ namespace www.yasinkaya.org.Shared.Data.Concrete.EntityFramework
                 }
             }
 
-            return await query.ToListAsync();
+            return await query.AsNoTracking().ToListAsync();
         }
 
         public async Task<T> GetAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties)
@@ -75,7 +76,7 @@ namespace www.yasinkaya.org.Shared.Data.Concrete.EntityFramework
                 }
             }
 
-            return await query.SingleOrDefaultAsync();
+            return await query.AsNoTracking().SingleOrDefaultAsync();
         }
 
         public async Task<IList<T>> SearchAsync(IList<Expression<Func<T, bool>>> predicates, params Expression<Func<T, object>>[] includeProperties)

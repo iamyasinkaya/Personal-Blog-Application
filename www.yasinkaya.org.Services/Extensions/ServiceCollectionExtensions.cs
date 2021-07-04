@@ -19,7 +19,7 @@ namespace www.yasinkaya.org.Services.Extensions
     {
         public static IServiceCollection LoadMyServices(this IServiceCollection serviceCollection, string connectionString)
         {
-            serviceCollection.AddDbContext<YasinKayaContext>(opt => opt.UseSqlServer(connectionString));
+            serviceCollection.AddDbContext<YasinKayaContext>(opt => opt.UseSqlServer(connectionString).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
             serviceCollection.AddIdentity<User, Role>(options =>
             {
                 // User Password Options
