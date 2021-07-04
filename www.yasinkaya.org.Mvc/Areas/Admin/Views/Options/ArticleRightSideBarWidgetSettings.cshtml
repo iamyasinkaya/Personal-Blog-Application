@@ -2,27 +2,27 @@
 
 @{
     Layout = "_Layout";
-    ViewBag.Title = "Makele sayfaları için Widget Ayaları";
+    ViewBag.Title = "Makale Sayfaları için Widget Ayarları";
 
 }
 <div class="row">
     <div class="col-lg-8 offset-lg-2">
         <div class="card mt-1 mb-1">
             <div class="card-header">
-                <h4 class="text-center"><span class="fas fa-edit"></span>Makele sayfaları için Widget Ayaları</h4>
+                <h4 class="text-center"><span class="fas fa-edit"></span> Makale Sayfaları için Widget Ayarları</h4>
             </div>
             <div class="card-body">
-                <form asp-controller="Options" asp-action="ArticleRightSideBarWidgetSettings" method="post" id="form-generalsettings-update">
+                <form asp-controller="Options" asp-action="ArticleRightSideBarWidgetSettings" method="post" id="form-articlerightsidebarwidgetsettings-update">
                     <div asp-validation-summary="All" class="text-danger" id="validation-summary"></div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label asp-for="Header"></label>
-                            <input class="form-control" asp-for="Header" placeholder="Lütfen, terchi ettiğiniz widget başlığını giriniz." />
+                            <input class="form-control" asp-for="Header" placeholder="Lütfen, tercih ettiğiniz widget başlığını giriniz." />
                             <span class="text-danger" asp-validation-for="Header"></span>
                         </div>
                         <div class="form-group col-md-6">
                             <label asp-for="TakeSize"></label>
-                            <input class="form-control" type="number" asp-for="TakeSize" />
+                            <input type="number" class="form-control" asp-for="TakeSize" />
                             <span class="text-danger" asp-validation-for="TakeSize"></span>
                         </div>
                         <div class="form-group col-md-6">
@@ -52,37 +52,38 @@
                                 <option></option>
                                 <option value="true">Artan</option>
                                 <option value="false">Azalan</option>
+
                             </select>
                             <span asp-validation-for="IsAscending" class="text-danger"></span>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="datepicker" asp-for="StartAt"></label>
+                            <label for="startAtDatePicker" asp-for="StartAt"></label>
                             <input type="text" id="startAtDatePicker" class="form-control" value="@Model.StartAt.ToShortDateString()" asp-for="StartAt" />
                             <span asp-validation-for="StartAt" class="text-danger"></span>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="datepicker" asp-for="EndAt"></label>
+                            <label for="endAtDatePicker" asp-for="EndAt"></label>
                             <input type="text" id="endAtDatePicker" class="form-control" value="@Model.EndAt.ToShortDateString()" asp-for="EndAt" />
                             <span asp-validation-for="EndAt" class="text-danger"></span>
                         </div>
                         <div class="form-group col-md-6">
                             <label asp-for="MinViewCount"></label>
-                            <input class="form-control" type="number" asp-for="MinViewCount" />
+                            <input type="number" class="form-control" asp-for="MinViewCount" />
                             <span class="text-danger" asp-validation-for="MinViewCount"></span>
                         </div>
                         <div class="form-group col-md-6">
                             <label asp-for="MaxViewCount"></label>
-                            <input class="form-control" type="number" asp-for="MaxViewCount" />
+                            <input type="number" class="form-control" asp-for="MaxViewCount" />
                             <span class="text-danger" asp-validation-for="MaxViewCount"></span>
                         </div>
                         <div class="form-group col-md-6">
                             <label asp-for="MinCommentCount"></label>
-                            <input class="form-control" type="number" asp-for="MinCommentCount" />
+                            <input type="number" class="form-control" asp-for="MinCommentCount" />
                             <span class="text-danger" asp-validation-for="MinCommentCount"></span>
                         </div>
                         <div class="form-group col-md-6">
                             <label asp-for="MaxCommentCount"></label>
-                            <input class="form-control" type="number" asp-for="MaxCommentCount" />
+                            <input type="number" class="form-control" asp-for="MaxCommentCount" />
                             <span class="text-danger" asp-validation-for="MaxCommentCount"></span>
                         </div>
                         <div class="form-group col-md-6">
@@ -98,15 +99,15 @@
 </div>
 @section Scripts
 {
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous"></script>
     <script src="~/AdminLTE/js/articleRightSideBarWidgetSettings.js" type="application/ecmascript"></script>
 }
 @section Styles
 {
-
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.theme.min.css" integrity="sha512-9h7XRlUeUwcHUf9bNiWSTO9ovOWFELxTlViP801e5BbwNJ5ir9ua6L20tEroWZdm+HFBAWBLx2qH4l4QHHlRyg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/cupertino/jquery-ui.min.css" integrity="sha512-ug/p2fTnYRx/TfVgL8ejTWolaq93X+48/FLS9fKf7AiazbxHkSEENdzWkOxbjJO/X1grUPt9ERfBt21iLh2dxg==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/cupertino/theme.min.css" integrity="sha512-adRIgePtMQgAVB+Mfkhl+Nyva/WllWlFzJyyhYCjznU3Di+Z4SsYi1Rqsep11PYLpUsW/SjE4NXUkIjabQJCOQ==" crossorigin="anonymous" />
     <link href="~/AdminLTE/css/select2-bootstrap4.min.css" rel="stylesheet" />
+
 }

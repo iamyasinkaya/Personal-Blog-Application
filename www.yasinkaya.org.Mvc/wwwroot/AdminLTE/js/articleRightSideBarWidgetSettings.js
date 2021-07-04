@@ -1,19 +1,12 @@
 ﻿$(document).ready(function () {
 
 
-
     // Select2
-
     $('#categoryList').select2({
         theme: 'bootstrap4',
         placeholder: "Lütfen bir kategori seçiniz...",
         allowClear: true
     });
-
-    // Select2
-
-
-    // Filter
 
     $('#filterByList').select2({
         theme: 'bootstrap4',
@@ -21,20 +14,11 @@
         allowClear: true
     });
 
-    // Filter
-
-
-    // Select2
-
     $('#orderByList').select2({
         theme: 'bootstrap4',
-        placeholder: "Lütfen bir sıralama türünü seçiniz...",
+        placeholder: "Lütfen bir sıralama türü seçiniz...",
         allowClear: true
     });
-
-    // Select2
-
-    // Select2
 
     $('#isAscendingList').select2({
         theme: 'bootstrap4',
@@ -69,10 +53,12 @@
             duration: 1000,
             showAnim: "drop",
             showOptions: { direction: "down" },
-            /* minDate: -3,*/
-            maxDate: 0
+            /*minDate: -3,*/
+            maxDate: 0,
+            onSelect: function (selectedDate) {
+                $("#endAtDatePicker").datepicker('option', 'minDate', selectedDate || getTodaysDate());
+            }
         });
-
         $("#endAtDatePicker").datepicker({
             closeText: "kapat",
             prevText: "&#x3C;geri",
@@ -94,7 +80,7 @@
             duration: 1000,
             showAnim: "drop",
             showOptions: { direction: "down" },
-            /* minDate: -3,*/
+            /*minDate: -3,*/
             maxDate: 0
         });
     });
