@@ -11,6 +11,8 @@ namespace www.yasinkaya.org.Shared.Utilities.Result.ComplexTypes
         Success,
         Error,
         Warning,
-        Info
+        Info,
+        Authentication,
+        Authorization
     }
 }
