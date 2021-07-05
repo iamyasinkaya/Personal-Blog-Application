@@ -158,6 +158,9 @@ namespace www.yasinkaya.org.Shared.Data.Concrete.EntityFramework
             return await query.ToListAsync();
         }
 
-       
+        public IQueryable<T> GetAsQueryable()
+        {
+            return _context.Set<T>().AsQueryable();
+        }
     }
 }
