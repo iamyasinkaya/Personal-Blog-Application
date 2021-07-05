@@ -16,6 +16,7 @@ using www.yasinkaya.org.Shared.Utilities.Helpers.Abstract;
 
 namespace www.yasinkaya.org.Mvc.Controllers
 {
+    [Route("/")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -35,6 +36,9 @@ namespace www.yasinkaya.org.Mvc.Controllers
             _aboutUsPageInfoWriter = aboutUsPageInfoWriter;
         }
 
+        [Route("index")]
+        [Route("anasayfa")]
+        [Route("")]
         [HttpGet]
         public async Task<IActionResult> Index(int? categoryId, int currentPage = 1, int pageSize = 5, bool isAscending = false)
         {
@@ -44,7 +48,8 @@ namespace www.yasinkaya.org.Mvc.Controllers
 
             return View(articlesResult.Data);
         }
-
+        [Route("hakkimizda")]
+        [Route("hakkimda")]
         [HttpGet]
         public IActionResult About()
         {
@@ -56,11 +61,13 @@ namespace www.yasinkaya.org.Mvc.Controllers
             //});
             return View(_aboutUsPageInfo);
         }
+        [Route("iletisim")]
         [HttpGet]
         public IActionResult Contact()
         {
             return View();
         }
+        [Route("iletisim")]
         [HttpPost]
         public IActionResult Contact(EmailSendDto emailSendDto)
         {
