@@ -43,7 +43,7 @@ namespace www.yasinkaya.org.Mvc
             services.ConfigureWritable<AboutUsPageInfo>(Configuration.GetSection("AboutUsPageInfo"));
             services.ConfigureWritable<WebsiteInfo>(Configuration.GetSection("WebsiteInfo"));
             services.ConfigureWritable<SmtpSettings>(Configuration.GetSection("SmtpSettings"));
-            services.AddControllersWithViews(options=>
+            services.AddControllersWithViews(options =>
             {
                 options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(value => "Bu alan boþ geçilmemelidir.");
                 options.Filters.Add<MvcExceptionFilter>();
@@ -102,6 +102,16 @@ namespace www.yasinkaya.org.Mvc
                 endpoints.MapAreaControllerRoute(name: "Admin",
                                       areaName: "Admin",
                                       pattern: "Admin/{controller}/{action}/{id?}");
+                endpoints.MapControllerRoute(
+                    name: "article",
+                    pattern: "{title}/{articleId}",
+                    defaults: new
+                    {
+                        controller = "Article",
+                        action = "Detail"
+                    }
+
+                    );
                 endpoints.MapDefaultControllerRoute();
             });
         }
