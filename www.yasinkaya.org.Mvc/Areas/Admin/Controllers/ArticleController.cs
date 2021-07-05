@@ -63,9 +63,9 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var articleAddDto = Mapper.Map<ArticleAddDto>(articleAddViewModel);
-                var imageResult = await ImageHelper.UploadAsync(articleAddViewModel.Title,
-                    articleAddViewModel.Thumbnail, PictureType.Post);
-                articleAddDto.Thumbnail = imageResult.Data.FullName;
+                //var imageResult = await ImageHelper.Upload(articleAddViewModel.Title,
+                //    articleAddViewModel.Thumbnail, PictureType.Post);
+                //articleAddDto.Thumbnail = imageResult.Data.FullName;
                 var result = await _articleService.AddAsync(articleAddDto, LoggedInUser.UserName, LoggedInUser.Id);
                 if (result.ResultStatus == ResultStatus.Success)
                 {
@@ -112,11 +112,11 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
                 var oldThumbnail = articleUpdateViewModel.Thumbnail;
                 if (articleUpdateViewModel.ThumbnailFile != null)
                 {
-                    var uploadedImageResult = await ImageHelper.UploadAsync(articleUpdateViewModel.Title,
-                        articleUpdateViewModel.ThumbnailFile, PictureType.Post);
-                    articleUpdateViewModel.Thumbnail = uploadedImageResult.ResultStatus == ResultStatus.Success
-                        ? uploadedImageResult.Data.FullName
-                        : "postImages/defaultThumbnail.jpg";
+                    //var uploadedImageResult = await ImageHelper.Upload(articleUpdateViewModel.Title,
+                    //    articleUpdateViewModel.ThumbnailFile, PictureType.Post);
+                    //articleUpdateViewModel.Thumbnail = uploadedImageResult.ResultStatus == ResultStatus.Success
+                    //    ? uploadedImageResult.Data.FullName
+                    //    : "postImages/defaultThumbnail.jpg";
                     if (oldThumbnail != "postImages/defaultThumbnail.jpg")
                     {
                         isNewThumbnailUploaded = true;

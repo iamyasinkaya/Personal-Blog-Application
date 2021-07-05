@@ -30,7 +30,7 @@ namespace www.yasinkaya.org.Mvc.Helpers.Concrete
             _wwwroot = _env.WebRootPath;
         }
 
-        public async Task<IDataResult<ImageUploadedDto>> UploadAsync(string name, IFormFile pictureFile, PictureType pictureType, string folderName = null)
+        public string Upload(string name, IFormFile pictureFile, PictureType pictureType, string folderName = null)
         {
 
             folderName ??= pictureType == PictureType.User ? userImagesFolder : postImagesFolder;
@@ -46,22 +46,14 @@ namespace www.yasinkaya.org.Mvc.Helpers.Concrete
             DateTime dateTime = DateTime.Now;
             string newFileName = $"{name}_{dateTime.FullDateAndTimeStringWithUnderscore()}{fileExtension}";
             var path = Path.Combine($"{_wwwroot}/{imgFolder}/{folderName}", newFileName);
-            await using (var stream = new FileStream(path, FileMode.Create))
+            using (var stream = new FileStream(path, FileMode.Create))
             {
-                await pictureFile.CopyToAsync(stream);
+                pictureFile.CopyToAsync(stream);
             }
             string message = pictureType == PictureType.User
                 ? $"{name} adlı kullanıcının resimi başarıyla yüklenmiştir."
                 : $"{name} adlı makalenin resimi başarıyla yüklenmiştir.";
-            return new DataResult<ImageUploadedDto>(ResultStatus.Success, message, new ImageUploadedDto
-            {
-                FullName = $"{folderName}/{newFileName}",
-                OldName = oldFileName,
-                Extension = fileExtension,
-                FolderName = folderName,
-                Path = path,
-                Size = pictureFile.Length
-            });
+            return $"{folderName}/{newFileName}";
         }
 
         public IDataResult<ImageDeletedDto> Delete(string pictureName)

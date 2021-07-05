@@ -78,10 +78,10 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var uploadedImageDtoResult = await ImageHelper.UploadAsync(userAddDto.UserName, userAddDto.PictureFile, PictureType.User);
-                userAddDto.Picture = uploadedImageDtoResult.ResultStatus == ResultStatus.Success
-                    ? uploadedImageDtoResult.Data.FullName
-                    : "userImages/defaultUser.png";
+                //var uploadedImageDtoResult = await ImageHelper.Upload(userAddDto.UserName, userAddDto.PictureFile, PictureType.User);
+                //userAddDto.Picture = uploadedImageDtoResult.ResultStatus == ResultStatus.Success
+                //    ? uploadedImageDtoResult.Data.FullName
+                //    : "userImages/defaultUser.png";
                 var user = Mapper.Map<User>(userAddDto);
                 var result = await UserManager.CreateAsync(user, userAddDto.Password);
                 if (result.Succeeded)
@@ -122,7 +122,6 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
             return Json(userAddAjaxModelStateErrorModel);
 
         }
-
         [Authorize(Roles = "SuperAdmin,User.Delete")]
         [HttpPost]
         public async Task<JsonResult> Delete(int userId)
@@ -179,10 +178,10 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
                 var oldUserPicture = oldUser.Picture;
                 if (userUpdateDto.PictureFile != null)
                 {
-                    var uploadedImageDtoResult = await ImageHelper.UploadAsync(userUpdateDto.UserName, userUpdateDto.PictureFile, PictureType.User);
-                    userUpdateDto.Picture = uploadedImageDtoResult.ResultStatus == ResultStatus.Success
-                        ? uploadedImageDtoResult.Data.FullName
-                        : "userImages/defaultUser.png";
+                    //var uploadedImageDtoResult = await ImageHelper.Upload(userUpdateDto.UserName, userUpdateDto.PictureFile, PictureType.User);
+                    //userUpdateDto.Picture = uploadedImageDtoResult.ResultStatus == ResultStatus.Success
+                    //    ? uploadedImageDtoResult.Data.FullName
+                    //    : "userImages/defaultUser.png";
                     if (oldUserPicture != "userImages/defaultUser.png")
                     {
                         isNewPictureUploaded = true;
@@ -254,10 +253,10 @@ namespace www.yasinkaya.org.Mvc.Areas.Admin.Controllers
                 var oldUserPicture = oldUser.Picture;
                 if (userUpdateDto.PictureFile != null)
                 {
-                    var uploadedImageDtoResult = await ImageHelper.UploadAsync(userUpdateDto.UserName, userUpdateDto.PictureFile, PictureType.User);
-                    userUpdateDto.Picture = uploadedImageDtoResult.ResultStatus == ResultStatus.Success
-                        ? uploadedImageDtoResult.Data.FullName
-                        : "userImages/defaultUser.png";
+                    //var uploadedImageDtoResult = await ImageHelper.Upload(userUpdateDto.UserName, userUpdateDto.PictureFile, PictureType.User);
+                    //userUpdateDto.Picture = uploadedImageDtoResult.ResultStatus == ResultStatus.Success
+                    //    ? uploadedImageDtoResult.Data.FullName
+                    //    : "userImages/defaultUser.png";
                     if (oldUserPicture != "userImages/defaultUser.png")
                     {
                         isNewPictureUploaded = true;
