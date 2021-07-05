@@ -42,7 +42,7 @@ namespace www.yasinkaya.org.Mvc
                 cfg.AddProfile(new UserProfile(provider.GetService<IImageHelper>()));
                 cfg.AddProfile(new CategoryProfile());
                 cfg.AddProfile(new ArticleProfile());
-                cfg.AddProfile(new ViewModelsProfile());
+                cfg.AddProfile(new ViewModelsProfile(provider.GetService<IImageHelper>()));
                 cfg.AddProfile(new CommentProfile());
             }).CreateMapper());
             services.Configure<AboutUsPageInfo>(Configuration.GetSection("AboutUsPageInfo"));
