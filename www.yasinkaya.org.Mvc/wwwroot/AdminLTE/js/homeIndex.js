@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    //Datatable
+    // DataTable
     $('#articlesTable').DataTable({
         "order": [[4, "desc"]],
         language: {
@@ -35,66 +35,49 @@
         },
 
     });
+    // DataTable
 
-    //Datatable
-    //Chart Js
+    // Chart.js
 
-    const categories = [
-        {
+    $.get('/Admin/Article/GetAllByViewCount/?isAscending=false&takeSize=10',
+        function (data) {
+            const articleResult = jQuery.parseJSON(data);
 
-            name: 'C#',
-            viewCount: '24500'
+            let viewCountContext = $('#viewCountChart');
 
-        }, {
-
-            name: 'C++',
-            viewCount: '77000'
-
-        }, {
-
-            name: 'Javascript',
-            viewCount: '57880'
-
-        }, {
-
-            name: 'Dart',
-            viewCount: '5750'
-
-        }, {
-
-            name: 'Php',
-            viewCount: '117453'
-
-        }]
-
-    let viewCountContext = $('#viewCountChart');
-
-    let viewCountChart = new Chart(viewCountContext,
-        {
-
-            type: 'bar',
-            data: {
-                labels: categories.map(category => category.name),
-                datasets: [
-                    {
-                        label: 'Okunma Sayısı',
-                        data: categories.map(category => category.viewCount),
-                        backgroundColor: ['#FCF8E8', '#D4E2D4', '#ECB390', '#DF7861', '#F38BA0'],
-                        hoverBorderWidth: 4,
-                        hoverBorderColor: 'black'
-                    }]
-            },
-            options: {
-                plugins: {
-                    legend: {
-                        labels: {
-                            font: {
-                                size: 15
+            let viewCountChart = new Chart(viewCountContext,
+                {
+                    type: 'bar',
+                    data: {
+                        labels: articleResult.$values.map(article => article.Title),
+                        datasets: [
+                            {
+                                label: 'Okunma Sayısı',
+                                data: articleResult.$values.map(article => article.ViewsCount),
+                                backgroundColor: '#fb3640',
+                                hoverBorderWidth: 4,
+                                hoverBorderColor: 'black'
+                            },
+                            {
+                                label: 'Yorum Sayısı',
+                                data: articleResult.$values.map(article => article.CommentCount),
+                                backgroundColor: '#fdca40',
+                                hoverBorderWidth: 4,
+                                hoverBorderColor: 'black'
+                            }]
+                    },
+                    options: {
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    font: {
+                                        size: 18
+                                    }
+                                }
                             }
                         }
                     }
-                }
-            }
-
+                });
         });
+
 });
