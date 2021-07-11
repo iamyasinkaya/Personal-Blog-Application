@@ -24,16 +24,12 @@ namespace www.yasinkaya.org.Mvc
 {
     public class Startup
     {
-
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
-
-
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IImageHelper, ImageHelper>();
@@ -48,11 +44,13 @@ namespace www.yasinkaya.org.Mvc
             services.Configure<AboutUsPageInfo>(Configuration.GetSection("AboutUsPageInfo"));
             services.Configure<WebsiteInfo>(Configuration.GetSection("WebsiteInfo"));
             services.Configure<SmtpSettings>(Configuration.GetSection("SmtpSettings"));
-            services.Configure<ArticleRightSideBarWidgetOptions>(Configuration.GetSection("ArticleRightSideBarWidgetOptions"));
-            services.ConfigureWritable<ArticleRightSideBarWidgetOptions>(Configuration.GetSection("ArticleRightSideBarWidgetOptions"));
+            services.Configure<ArticleRightSideBarWidgetOptions>(
+                Configuration.GetSection("ArticleRightSideBarWidgetOptions"));
             services.ConfigureWritable<AboutUsPageInfo>(Configuration.GetSection("AboutUsPageInfo"));
             services.ConfigureWritable<WebsiteInfo>(Configuration.GetSection("WebsiteInfo"));
             services.ConfigureWritable<SmtpSettings>(Configuration.GetSection("SmtpSettings"));
+            services.ConfigureWritable<ArticleRightSideBarWidgetOptions>(
+                Configuration.GetSection("ArticleRightSideBarWidgetOptions"));
             services.AddControllersWithViews(options =>
             {
                 options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(value => "Bu alan boþ geçilmemelidir.");
@@ -62,11 +60,8 @@ namespace www.yasinkaya.org.Mvc
                 opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                 opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
             }).AddNToastNotifyToastr();
-            //services.AddHttpClient();
             services.AddSession();
-            //services.AddAutoMapper(typeof(CategoryProfile), typeof(ArticleProfile), typeof(UserProfile), typeof(ViewModelsProfile), typeof(CommentProfile));
-            services.LoadMyServices(connectionString: Configuration.GetConnectionString(name: "LocalDB"));
-            
+            services.LoadMyServices(connectionString: Configuration.GetConnectionString("LocalDB"));
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = new PathString("/Admin/Auth/Login");
@@ -76,17 +71,15 @@ namespace www.yasinkaya.org.Mvc
                     Name = "YasinKayaBlog",
                     HttpOnly = true,
                     SameSite = SameSiteMode.Strict,
-                    SecurePolicy = CookieSecurePolicy.Always,
-
+                    SecurePolicy = CookieSecurePolicy.SameAsRequest // Always
                 };
-
                 options.SlidingExpiration = true;
                 options.ExpireTimeSpan = System.TimeSpan.FromDays(7);
                 options.AccessDeniedPath = new PathString("/Admin/Auth/AccessDenied");
             });
         }
 
-
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -94,14 +87,8 @@ namespace www.yasinkaya.org.Mvc
                 app.UseDeveloperExceptionPage();
                 app.UseStatusCodePages();
             }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
 
-                app.UseHsts();
-            }
             app.UseSession();
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthentication();
@@ -109,18 +96,15 @@ namespace www.yasinkaya.org.Mvc
             app.UseNToastNotify();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapAreaControllerRoute(name: "Admin",
-                                      areaName: "Admin",
-                                      pattern: "Admin/{controller}/{action}/{id?}");
+                endpoints.MapAreaControllerRoute(
+                    name: "Admin",
+                    areaName: "Admin",
+                    pattern: "Admin/{controller=Home}/{action=Index}/{id?}"
+                );
                 endpoints.MapControllerRoute(
                     name: "article",
                     pattern: "{title}/{articleId}",
-                    defaults: new
-                    {
-                        controller = "Article",
-                        action = "Detail"
-                    }
-
+                    defaults: new { controller = "Article", action = "Detail" }
                     );
                 endpoints.MapDefaultControllerRoute();
             });

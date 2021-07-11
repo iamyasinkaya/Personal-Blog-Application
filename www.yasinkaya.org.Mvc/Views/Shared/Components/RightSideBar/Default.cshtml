@@ -8,9 +8,9 @@
         <div class="card-body">
             <form asp-controller="Article" asp-action="Search" method="get">
                 <div class="input-group">
-                    <input type="text" class="form-control" name="keyword" placeholder="Aramamak istediğiniz anahtar kelime...">
+                    <input type="text" class="form-control" name="keyword" placeholder="Aramak istediğiniz anahtar kelime...">
                     <span class="input-group-append">
-                        <button class="btn btn-secondary" type="submit">Ara</button>
+                        <button class="btn btn-secondary" type="submit">Ara!</button>
                     </span>
                 </div>
             </form>
@@ -35,6 +35,7 @@
                     </ul>
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -50,15 +51,15 @@
                             if (i % 2 == 0)
                             {
             <li class="list-group-item list-group-item-primary">
-                <a asp-controller="Article" asp-action="Detail" asp-route-articleId="@Model.Articles[i].Id">@Model.Articles[i].Title</a>
+                <a href="/@Url.FriendlyUrlHelper(Model.Articles[i].Title)/@Model.Articles[i].Id">@Model.Articles[i].Title</a>
             </li> }
                             else
                             {
-                                <li class="list-group-item list-group-item-info">
-                                    <a asp-controller="Article" asp-action="Detail" asp-route-articleId="@Model.Articles[i].Id">@Model.Articles[i].Title</a>
-                                </li>
-                            }
+            <li class="list-group-item list-group-item-info">
+                <a href="/@Url.FriendlyUrlHelper(Model.Articles[i].Title)/@Model.Articles[i].Id">@Model.Articles[i].Title</a>
+            </li>}
                         }
+
                     </ul>
                 </div>
             </div>

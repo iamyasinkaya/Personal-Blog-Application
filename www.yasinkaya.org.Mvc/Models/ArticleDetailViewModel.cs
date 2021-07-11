@@ -9,6 +9,6 @@ namespace www.yasinkaya.org.Mvc.Models
     public class ArticleDetailViewModel
     {
         public ArticleDto ArticleDto { get; set; }
-        public ArticleDetailRideSideBarViewModel ArticleDetailRideSideBarViewModel { get; set; }
+        public ArticleDetailRightSideBarViewModel ArticleDetailRightSideBarViewModel { get; set; }
     }
 }

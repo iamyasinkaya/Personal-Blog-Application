@@ -7,7 +7,7 @@ using www.yasinkaya.org.Entities.Dtos;
 
 namespace www.yasinkaya.org.Mvc.Models
 {
-    public class ArticleDetailRideSideBarViewModel
+    public class ArticleDetailRightSideBarViewModel
     {
         public string Header { get; set; }
         public ArticleListDto ArticleListDto { get; set; }

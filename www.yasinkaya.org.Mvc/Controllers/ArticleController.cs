@@ -9,6 +9,7 @@ using www.yasinkaya.org.Entities.Concrete;
 using www.yasinkaya.org.Mvc.Attributes;
 using www.yasinkaya.org.Mvc.Models;
 using www.yasinkaya.org.Services.Abstract;
+using www.yasinkaya.org.Shared.Utilities.Result.ComplexTypes;
 
 namespace www.yasinkaya.org.Mvc.Controllers
 {
@@ -16,7 +17,6 @@ namespace www.yasinkaya.org.Mvc.Controllers
     {
         private readonly IArticleService _articleService;
         private readonly ArticleRightSideBarWidgetOptions _articleRightSideBarWidgetOptions;
-
 
         public ArticleController(IArticleService articleService, IOptionsSnapshot<ArticleRightSideBarWidgetOptions> articleRightSideBarWidgetOptions)
         {
@@ -27,43 +27,29 @@ namespace www.yasinkaya.org.Mvc.Controllers
         public async Task<IActionResult> Search(string keyword, int currentPage = 1, int pageSize = 5, bool isAscending = false)
         {
             var searchResult = await _articleService.SearchAsync(keyword, currentPage, pageSize, isAscending);
-            if (searchResult.ResultStatus == Shared.Utilities.Result.ComplexTypes.ResultStatus.Success)
-            {
+            if (searchResult.ResultStatus == ResultStatus.Success)
                 return View(new ArticleSearchViewModel
                 {
                     ArticleListDto = searchResult.Data,
                     Keyword = keyword
                 });
-            }
-
             return NotFound();
         }
-
         [HttpGet]
         [ViewCountFilter]
         public async Task<IActionResult> Detail(int articleId)
         {
             var articleResult = await _articleService.GetAsync(articleId);
-            if (articleResult.ResultStatus == Shared.Utilities.Result.ComplexTypes.ResultStatus.Success)
+            if (articleResult.ResultStatus == ResultStatus.Success)
             {
                 var userArticles = await _articleService.GetAllByUserIdOnFilterAsnyc(articleResult.Data.Article.UserId,
-                    _articleRightSideBarWidgetOptions.FilterBy,
-                    _articleRightSideBarWidgetOptions.OrderBy,
-                    _articleRightSideBarWidgetOptions.IsAscending,
-                    _articleRightSideBarWidgetOptions.TakeSize,
-                    _articleRightSideBarWidgetOptions.CategoryId,
-                    _articleRightSideBarWidgetOptions.StartAt,
-                    _articleRightSideBarWidgetOptions.EndAt,
-                    _articleRightSideBarWidgetOptions.MinCommentCount,
-                    _articleRightSideBarWidgetOptions.MaxViewCount, 
-                    _articleRightSideBarWidgetOptions.MinCommentCount, 
-                    _articleRightSideBarWidgetOptions.MaxCommentCount);
-
+                    _articleRightSideBarWidgetOptions.FilterBy, _articleRightSideBarWidgetOptions.OrderBy, _articleRightSideBarWidgetOptions.IsAscending, _articleRightSideBarWidgetOptions.TakeSize, _articleRightSideBarWidgetOptions.CategoryId, _articleRightSideBarWidgetOptions.StartAt,
+                    _articleRightSideBarWidgetOptions.EndAt, _articleRightSideBarWidgetOptions.MinViewCount, _articleRightSideBarWidgetOptions.MaxViewCount, _articleRightSideBarWidgetOptions.MinCommentCount, _articleRightSideBarWidgetOptions.MaxCommentCount);
                 //await _articleService.IncreaseViewCountAsync(articleId);
                 return View(new ArticleDetailViewModel
                 {
                     ArticleDto = articleResult.Data,
-                    ArticleDetailRideSideBarViewModel = new ArticleDetailRideSideBarViewModel
+                    ArticleDetailRightSideBarViewModel = new ArticleDetailRightSideBarViewModel
                     {
                         ArticleListDto = userArticles.Data,
                         Header = _articleRightSideBarWidgetOptions.Header,
@@ -71,6 +57,7 @@ namespace www.yasinkaya.org.Mvc.Controllers
                     }
                 });
             }
+
             return NotFound();
         }
     }

@@ -17,18 +17,17 @@ namespace www.yasinkaya.org.Mvc.Attributes
             var articleId = context.ActionArguments["articleId"];
             if (articleId is not null)
             {
-                string articleValue = context.HttpContext.Request.Cookies[$"article{articleId}"];
+                string articleValue = context.HttpContext.Request.Cookies[$"article{articleId}"]; // article22 article1 article55
                 if (string.IsNullOrEmpty(articleValue))
                 {
                     Set($"article{articleId}", articleId.ToString(), 1, context.HttpContext.Response);
                     var articleService = context.HttpContext.RequestServices.GetService<IArticleService>();
-                    await articleService.IncreaseViewCountAsync(articleId: Convert.ToInt32(articleId));
+                    await articleService.IncreaseViewCountAsync(Convert.ToInt32(articleId));
                     await next();
                 }
             }
             await next();
         }
-
         /// <summary>  
         /// set the cookie  
         /// </summary>  
@@ -55,5 +54,6 @@ namespace www.yasinkaya.org.Mvc.Attributes
         {
             response.Cookies.Delete(key);
         }
+
     }
 }

@@ -9,6 +9,7 @@ using www.yasinkaya.org.Entities.Dtos;
 using www.yasinkaya.org.Mvc.Models;
 using www.yasinkaya.org.Services.Abstract;
 using www.yasinkaya.org.Shared.Utilities.Extensions;
+using www.yasinkaya.org.Shared.Utilities.Result.ComplexTypes;
 
 namespace www.yasinkaya.org.Mvc.Controllers
 {
@@ -20,14 +21,13 @@ namespace www.yasinkaya.org.Mvc.Controllers
         {
             _commentService = commentService;
         }
-
         [HttpPost]
         public async Task<JsonResult> Add(CommentAddDto commentAddDto)
         {
             if (ModelState.IsValid)
             {
                 var result = await _commentService.AddAsync(commentAddDto);
-                if (result.ResultStatus == Shared.Utilities.Result.ComplexTypes.ResultStatus.Success)
+                if (result.ResultStatus == ResultStatus.Success)
                 {
                     var commentAddAjaxViewModel = JsonSerializer.Serialize(new CommentAddAjaxViewModel
                     {
@@ -35,20 +35,19 @@ namespace www.yasinkaya.org.Mvc.Controllers
                         CommentAddPartial = await this.RenderViewToStringAsync("_CommentAddPartial", commentAddDto)
                     }, new JsonSerializerOptions
                     {
-                        ReferenceHandler= ReferenceHandler.Preserve
+                        ReferenceHandler = ReferenceHandler.Preserve
                     });
                     return Json(commentAddAjaxViewModel);
                 }
                 ModelState.AddModelError("", result.Message);
             }
-
             var commentAddAjaxErrorModel = JsonSerializer.Serialize(new CommentAddAjaxViewModel
             {
                 CommentAddDto = commentAddDto,
                 CommentAddPartial = await this.RenderViewToStringAsync("_CommentAddPartial", commentAddDto)
             });
             return Json(commentAddAjaxErrorModel);
-
         }
+
     }
 }

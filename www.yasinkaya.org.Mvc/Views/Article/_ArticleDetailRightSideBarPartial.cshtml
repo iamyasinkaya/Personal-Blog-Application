@@ -1,5 +1,4 @@
-﻿@model ArticleDetailRideSideBarViewModel
-    <!-- Sidebar Widgets Column -->
+﻿@model ArticleDetailRightSideBarViewModel
 <div class="col-md-4">
 
     <div class="card my-4">
@@ -14,19 +13,19 @@
     <a href="@Model.User.LinkedInLink"><span class="fab fa-linkedin"></span></a>}
                 @if (Model.User.GitHubLink != null)
                 {
-    <a href="@Model.User.GitHubLink"><span class="fab fa-github"></span></a>}
-                @if (Model.User.FacebookLink != null)
-                {
-    <a href="@Model.User.FacebookLink"><span class="fab fa-facebook"></span></a>}
+    <a href="@Model.User.GitHubLink"><span class="fab fa-github-square"></span></a>}
                 @if (Model.User.TwitterLink != null)
                 {
-    <a href="@Model.User.TwitterLink"><span class="fab fa-twitter"></span></a>}
-                @if (Model.User.YoutubeLink != null)
+    <a href="@Model.User.TwitterLink"><span class="fab fa-twitter-square"></span></a>}
+                @if (Model.User.FacebookLink != null)
                 {
-    <a href="@Model.User.YoutubeLink"><span class="fab fa-youtube"></span></a>}
+    <a href="@Model.User.FacebookLink"><span class="fab fa-facebook-square"></span></a>}
                 @if (Model.User.InstagramLink != null)
                 {
-    <a href="@Model.User.InstagramLink"><span class="fab fa-instagram"></span></a>}
+    <a href="@Model.User.InstagramLink"><span class="fab fa-instagram-square"></span></a>}
+                @if (Model.User.YoutubeLink != null)
+                {
+    <a href="@Model.User.YoutubeLink"><span class="fab fa-youtube-square"></span></a>}
                 @if (Model.User.WebsiteLink != null)
                 {
     <a href="@Model.User.WebsiteLink"><span class="fas fa-home"></span></a>}
@@ -52,12 +51,13 @@
                             {
             <li class="list-group-item list-group-item-info">
                 <a asp-controller="Article" asp-action="Detail" asp-route-articleId="@Model.ArticleListDto.Articles[i].Id">@Model.ArticleListDto.Articles[i].Title</a>
-            </li>
-}
-    }
+            </li>}
+                        }
+
                     </ul>
                 </div>
             </div>
         </div>
     </div>
+
 </div>
