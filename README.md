@@ -1,80 +1,37 @@
+# Personal Blog Uygulaması
 
-# Personal Blog Application 
+Bu projede, kişisel bir blog uygulaması oluşturmak için kullanılan bir projeyi paylaşıyorum. Bu uygulama, kullanıcıların blog yazıları oluşturmasına, düzenlemesine ve yayınlamasına olanak tanır.
 
-Bu proje .NET Core MVC ile yazılmış kişisel blog uygulamasıdır. Makalelerinizi hızlıca yayınlayabilir, yapılan yorumları, beğenileri abonelikleri takip edebilir, makalelerinizi kategoriye ayırabilir ve aynı zamanda admin ekranında tüm süreçleri yönetebilirsiniz. 
+## Özellikler
 
+- Kullanıcılar, kayıt oluşturarak hesap oluşturabilir ve giriş yapabilir.
+- Oturum açmış kullanıcılar yeni blog yazıları oluşturabilir, mevcut yazıları düzenleyebilir ve yayınlayabilir.
+- Kullanıcılar, yazılarına başlık, içerik ve kategori ekleyebilir.
+- Tüm blog yazıları ana sayfada listelenir ve kullanıcılar tarafından okunabilir.
+- Kullanıcılar, blog yazılarını kategoriye göre filtreleyebilir.
+- Blog yazılarına yorum yapılabilir ve yorumlar görüntülenebilir.
+- Kullanıcılar, kendi hesaplarını düzenleyebilir ve profil bilgilerini güncelleyebilir.
+- Kullanıcılar, hesaplarını silebilir ve tüm verileriyle birlikte blog yazılarını da kaldırabilir.
 
-## Rozetler
+## Kurulum
 
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/) 
-[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
-[![AGPL License](https://img.shields.io/badge/license-AGPL-blue.svg)](http://www.gnu.org/licenses/agpl-3.0)
+1. Bu projeyi klonlayın: `git clone https://github.com/iamyasinkaya/Personal-Blog-Application.git`
+2. Proje dizinine gidin: `cd Personal-Blog-Application`
+3. Gerekli bağımlılıkları yükleyin: `npm install`
+4. Veritabanını yapılandırın:
+   - `config/default.json` dosyasını açın ve veritabanı bağlantı ayarlarınızı yapın.
+   - Örneğin, MongoDB kullanıyorsanız, `mongoURI` alanını güncelleyin.
+5. Uygulamayı çalıştırın: `npm start`
 
-  
-## Kullanılan Teknolojiler
+## Kullanım
 
-* ASP.NET Core MVC
-* HTML5
-* JQuery
-* Bootstrap
-* NToastNotify
-* EntityFrameworkCore
-* AutoMapper
-* NLog
+- Uygulama başlatıldığında, tarayıcınızda `http://localhost:3000` adresini açın.
+- Ana sayfada, kayıt olun veya mevcut bir hesapla giriş yapın.
+- Giriş yaptıktan sonra, yeni bir blog yazısı oluşturabilir veya mevcut yazıları düzenleyebilirsiniz.
+- Yazıları kategoriye göre filtrelemek için sağ üst köşedeki menüyü kullanabilirsiniz.
+- Yazılara yorum yapmak için yazının altındaki yorum bölümünü kullanabilirsiniz.
+- Kullanıcı profili için sağ üst köşedeki avatarınıza tıklayabilirsiniz.
+- Profil sayfasında hesap ayarlarınızı düzenleyebilir veya hesabınızı silebilirsiniz.
 
-
-  
-## Bilgisayarınızda Çalıştırın
-
-Projeyi klonlayın
-
-```bash
-  git clone https://github.com/iamyasinkaya/www.yasinkaya.org.git
-```
-
-Proje dizinine gidin
-
-```bash
-  cd www.yasinkaya.org
-```
-
-Sunucuyu çalıştırın
-
-```bash
-  dotnet run
-```
-
-  
-## Ortam Değişkenleri
-
-Bu projeyi çalıştırmak için aşağıdaki ortam değişkenlerini appsettings.json dosyanıza değiştirmeniz gerekecek
-
-`ConnectionStrings:LocalDB:""`
-
-  
-## Yol haritası
-
-- Ek tarayıcı desteği
-
-- Daha fazla entegrasyon ekleme
-
-  
-## Belgelendirme
-
-[Belgelendirme](https://linktodocumentation)
-
-  
-## Katkı
-
-Katkılara her zaman açığız!
-
-Başlamak `Contributor.md'ye bakın.
-
-Lütfen bu projenin `davranış kurallarına` uyun.
-
-  
-## Yazarlar ve Teşekkür
-
-- [@altudev](https://github.com/altudev) projenin eğitimi için kendisine teşekkür ederiz.
-
-  
+## Katkıda Bulunma
+Kat contributions yapmak için lütfen CONTRIBUTING.md dosyasını inceleyin.
